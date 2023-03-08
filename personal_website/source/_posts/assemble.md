@@ -1,5 +1,5 @@
 ---
-title: "assemble language"
+title: assembly language
 date: 2023-03-06
 categories: 
 - CSAPP 
@@ -10,15 +10,14 @@ categories:
 # 前言：
 前前后后看完这本书，做完所有实验和检测点，用了接近一个月的时间，除了最后几天比较认真，其余时间是比较懒散的，这本书其实最多半个月就能解决掉。接下来会步入CSAPP第三章的学习，争取早日把有名的attack lab完成了
 
+<!--more-->
 ---
-
 <a name="PhqOH"></a>
 # 实验1 查看CPU和内存，用机器指令和汇编指令编程
 <a name="xymUo"></a>
 ## debug环境搭建：[参考此文](https://blog.csdn.net/YuzuruHanyu/article/details/80287419?spm=1001.2014.3001.5506)
 <a name="UrdzB"></a>
 ## assignment 1
-
 1. 用A命令向内存中写入汇编指令，用U命令查看
 
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/29536731/1673249473372-3a80b2ab-d9e2-483c-ac41-140d30fdd765.png)

@@ -4,12 +4,11 @@ date: 2023/03/06
 categories:
 - CSAPP
 ---
-
 <meta name="referrer" content="no-referrer"/>
 <a name="IR5gF"></a>
 
 # lab1 dataLab
-
+<!--more-->
 <a name="RKm5i"></a>
 
 ## 前提
@@ -19,6 +18,7 @@ categories:
 
 ## 1.bitXor(x,y)
 要用~和&实现异或^，即将结果中 1-0，0-1对应的位设置为1<br />x&y中为1的位(bit)对应 1-1； 取反后为：0-0、0-1、1-0；<br />(~x&~y)为1的位(bit)对应 0-0； 取反后为：1-1、0-1、1-0；<br />两个做交集即为结果。（位向量可以表示集合，&，|，~可视为 交，并，补操作）
+
 ```cpp
 /*
 bitXor - x^y using only ~ and & 
