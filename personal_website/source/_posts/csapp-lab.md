@@ -3,6 +3,7 @@ title: "[csapp] datalab, bomblab, attacklab"
 date: 2023/03/06
 categories:
 - CSAPP
+tags: "CSAPP"
 ---
 <meta name="referrer" content="no-referrer"/>
 <a name="IR5gF"></a>

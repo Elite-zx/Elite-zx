@@ -376,6 +376,9 @@
       <categories>
         <category>CSAPP</category>
       </categories>
+      <tags>
+        <tag>CSAPP</tag>
+      </tags>
   </entry>
   <entry>
     <title>[csapp] datalab, bomblab, attacklab</title>
@@ -554,5 +557,8 @@
       <categories>
         <category>CSAPP</category>
       </categories>
+      <tags>
+        <tag>CSAPP</tag>
+      </tags>
   </entry>
 </search>

@@ -2,7 +2,8 @@
 title: assembly language
 date: 2023-03-06
 categories: 
-- CSAPP 
+- CSAPP
+tags: "CSAPP" 
 ---
 <meta name="referrer" content="no-referrer"/>
 <a name="MTE7s"></a>
