@@ -19,10 +19,11 @@ tags: "CSAPP"
 ## debug环境搭建：[参考此文](https://blog.csdn.net/YuzuruHanyu/article/details/80287419?spm=1001.2014.3001.5506)
 <a name="UrdzB"></a>
 ## assignment 1
+
 1. 用A命令向内存中写入汇编指令，用U命令查看
 
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/29536731/1673249473372-3a80b2ab-d9e2-483c-ac41-140d30fdd765.png)
-
+   
 2. 用R命令分别修改CS、IP寄存器，即CS:IP的指向，用T命令逐条执行
 
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/29536731/1673249669344-d36231e5-8310-46ba-a3c6-155e2601ff58.png)
