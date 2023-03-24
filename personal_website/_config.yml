@@ -4,10 +4,10 @@
 
 # Site
 title: Elite-X
-subtitle: ''
-description: ''
+subtitle: <font color="#4E2161">询的博客</font>
+description: <font color="#DEA057">Talk is cheap,show me the code</font>
 keywords:
-author: Elite-X(zhangxun)
+author: Elite-X
 language: en
 timezone: ''
 
