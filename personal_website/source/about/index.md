@@ -4,4 +4,5 @@ date: 2023-03-07 00:12:19
 type: about
 ---
 
-A man who love liberty
+A man who love liberty :thumbsup:
+A CS student :computer:
