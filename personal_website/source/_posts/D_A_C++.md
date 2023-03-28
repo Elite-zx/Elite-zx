@@ -9,7 +9,9 @@ tags:
 
 <meta name="referrer" content="no-referrer"/>
 <a name="qIfKY"></a>
+
 # 前言
+
 以下记录了我2022年暑假开始学习数据结构的历程。从哈希表到图论，有着详细的思考过程。
 
 <!--more-->
@@ -463,13 +465,13 @@ foo：File or Object，文件或对象。它用于代替对象变量或文件名
 
 2. **开放定址法（open addressing）：**
 
-往前探测（probe），形式化为公式就是`hashi(x) = (hash(x) + f(i))`,**i表示向前探测的次数**，f(i)称为冲突解决策略（collision resolution strategy）,显然`f(0)=0`。根据f(i)形式的不同，分为**线性(Linear)探测:**`**f(i)=i**`**、平方(quadratic)探测:**`**f(i) = i****2**`**、双(double)散列:**`**f(i) = i*hash****2****(x)**`<br />**线性探测会引起一次聚集（**primary cluster**），平方探测会引起二次聚集（**Secondary Clustering**），**关于这一点：[stackoverflow：What is primary and secondary clustering in hash?](https://stackoverflow.com/questions/27742285/what-is-primary-and-secondary-clustering-in-hash) 说的很清楚<br />为什么一次聚集对性能的影响会比二次聚集更大呢？首先要知道，聚集之所以会影响性能，是因为聚集导致hashPos之后的位置大部分被占用，进而导致探测次数增加。一次聚集是无间隔的聚集，那么只要在这堆聚集的项中发生了冲突，就基本上要一步一步的探测完所有聚集项才能找到空位置。而二次聚集是有间隔的，一次两步的探测会减少探测的发生。这个具体的描述比较困难，但是很好想。<br />双散列，消除了聚集问题，它应用了另一个哈希函数`**hash****2****(x)**`**（**哈希结果不能为0，则f(i)将失去意义**），**使得探测更趋于随机化，而不是集中在哈希位置附近。<br />注意点：
+往前探测（probe），形式化为公式就是`hashi(x) = (hash(x) + f(i))`,**i表示向前探测的次数**，f(i)称为冲突解决策略（collision resolution strategy）,显然`f(0)=0`。根据f(i)形式的不同，分为线性(Linear)探测:`f(i)=i`、平方(quadratic)探测:`f(i) = i2`、双(double)散列:`f(i) = i*hash2(x)`<br />**线性探测会引起一次聚集（**primary cluster**），平方探测会引起二次聚集（**Secondary Clustering**），**关于这一点：[stackoverflow：What is primary and secondary clustering in hash?](https://stackoverflow.com/questions/27742285/what-is-primary-and-secondary-clustering-in-hash) 说的很清楚<br />为什么一次聚集对性能的影响会比二次聚集更大呢？首先要知道，聚集之所以会影响性能，是因为聚集导致hashPos之后的位置大部分被占用，进而导致探测次数增加。一次聚集是无间隔的聚集，那么只要在这堆聚集的项中发生了冲突，就基本上要一步一步的探测完所有聚集项才能找到空位置。而二次聚集是有间隔的，一次两步的探测会减少探测的发生。这个具体的描述比较困难，但是很好想。<br />双散列，消除了聚集问题，它应用了另一个哈希函数`hash2(x)`（**哈希结果不能为0，则f(i)将失去意义**），使得探测更趋于随机化，而不是集中在哈希位置附近。<br />注意点：
 
 -  哈希表的**大小(tableSize)为素数(Prime)**能更好的减少冲突的发生 
 - **tableSize为素数且λ<0.5**（有一半以上空项）时平方探测能保证插入成功。否则甚至不如线性探测，因为插入可能会失败（书上有证明）
 - 当计算哈希值代价较高时，性能角度上，双散列较之平方探测不是一个更好的选择
 
-**两个方法的对比：**前者不如后者，因为分离链表法会因为插入而分配新内存，这将降低执行效率；其次，分离链表法等于是哈希表与链表的结合，等于要求实现了另一种数据结构(而不是哈希表)，提高了程序的复杂性
+**两个方法的对比：** 前者不如后者，因为分离链表法会因为插入而分配新内存，这将降低执行效率；其次，分离链表法等于是哈希表与链表的结合，等于要求实现了另一种数据结构(而不是哈希表)，提高了程序的复杂性
 ```cpp
 int findPos(const hashedObj& x) const
 	{

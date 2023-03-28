@@ -9,13 +9,11 @@ tags:
 
 <meta name="referrer" content="no-referrer"/>
 <a name="HHpvX"></a>
+
 # lab4 cachelab
 <!--more-->
-<a name="xSmA9"></a>
-## PartA
-<a name="Y5iFL"></a>
-### 1. 要做什么：
-[cachelab.pdf](https://www.yuque.com/attachments/yuque/0/2023/pdf/29536731/1679034059665-5dc8f6ef-14b4-44d3-b7d7-86d86787439b.pdf?_lake_card=%7B%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2023%2Fpdf%2F29536731%2F1679034059665-5dc8f6ef-14b4-44d3-b7d7-86d86787439b.pdf%22%2C%22name%22%3A%22cachelab.pdf%22%2C%22size%22%3A61287%2C%22ext%22%3A%22pdf%22%2C%22source%22%3A%22%22%2C%22status%22%3A%22done%22%2C%22download%22%3Atrue%2C%22taskId%22%3A%22ucfed49fb-dba4-4b45-976d-96d9752defc%22%2C%22taskType%22%3A%22upload%22%2C%22type%22%3A%22application%2Fpdf%22%2C%22__spacing%22%3A%22both%22%2C%22mode%22%3A%22title%22%2C%22id%22%3A%22iZZyy%22%2C%22margin%22%3A%7B%22top%22%3Atrue%2C%22bottom%22%3Atrue%7D%2C%22card%22%3A%22file%22%7D) [rec07.pdf](https://www.yuque.com/attachments/yuque/0/2023/pdf/29536731/1679034059905-2f06047b-ba4e-4abb-b642-f43a20552896.pdf?_lake_card=%7B%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2023%2Fpdf%2F29536731%2F1679034059905-2f06047b-ba4e-4abb-b642-f43a20552896.pdf%22%2C%22name%22%3A%22rec07.pdf%22%2C%22size%22%3A373293%2C%22ext%22%3A%22pdf%22%2C%22source%22%3A%22%22%2C%22status%22%3A%22done%22%2C%22download%22%3Atrue%2C%22taskId%22%3A%22u3bcb76bc-9a98-45cd-a08f-c450961f38a%22%2C%22taskType%22%3A%22upload%22%2C%22type%22%3A%22application%2Fpdf%22%2C%22__spacing%22%3A%22both%22%2C%22mode%22%3A%22title%22%2C%22id%22%3A%22M2QOk%22%2C%22margin%22%3A%7B%22top%22%3Atrue%2C%22bottom%22%3Atrue%7D%2C%22card%22%3A%22file%22%7D)<br />partA 中提到的`.trace`文件是一个可执行文件的内存访问记录，由Linux程序`valgrind`产生。partA要求我们构造一个模拟cache行为的`cache simulator`，将`.trace`文件作为输入(实际上就是一条条内存访问记录，模拟内存访问过程)，并伴有三个输入参数：
+
+## 1. 要做什么
 
 1. 组索引位数 -s  （$S = 2^s$为高速缓存组的组数）
 2. 高速缓存行数 -E 
@@ -23,14 +21,14 @@ tags:
 
 根据内存访问记录，输出每条访问的结果（hit/miss/evict)，输出操作通过调用`printSummary(hit_count, miss_count, eviction_count)`函数完成，输出结果应当与作者提供给我们的`reference cache simulator`相同，运行`make`+`./test-csim`获取评分
 <a name="i3aH1"></a>
-### 2. getopt函数的用法
+## 2. getopt函数的用法
 由于三个参数通过命令行输入，因此我们需要通过C语言库中的`getopt`函数，结合switch语句从命令行中获取参数值 <br />C语言中的`main`函数是程序的入口函数，它包含两个参数：`argc`和`argv`。它们的作用如下：
 
 1. argc参数
 
 argc参数表示程序运行时命令行参数的个数（argument count），包括程序名本身。因此，argc的值至少为1，即第一个参数是程序名本身。如果程序没有接受任何命令行参数，则argc的值为1。
 
-1. argv参数
+2. argv参数
 
 argv参数是一个字符串指针数组（argument vector），每个元素指向一个命令行参数。其中，argv[0]指向程序名本身，argv[1]、argv[2]等等依次指向后续的命令行参数。<br />通过argc和argv参数，程序可以接收命令行传递的参数，从而实现更加灵活和可配置的功能。例如，可以通过命令行参数指定程序要处理的文件名、程序要使用的配置文件、程序要输出的日志级别等等。程序可以根据不同的命令行参数采取不同的行为，从而实现更加灵活和可配置的功能。<br />C语言中的`getopt`函数可以帮助程序解析命令行参数。`getopt`函数通常与`argc`和`argv`参数一起使用，可以从命令行中提取选项和参数，并根据需要执行相应的操作。以下是`getopt`函数的一般用法：
 ```c
@@ -86,7 +84,7 @@ Unknown option: c
 
 `getopt`函数的第三个参数是一个字符串，用于指定程序支持的命令行选项和参数。<br />虽然`getopt`函数可以遍历所有命令行参数，但是在不指定可接受选项字符串的情况下，`getopt`函数不知道哪些参数是选项，哪些是参数，也不知道选项是否需要参数。指定<br />可接受选项字符串可以告诉`getopt`函数哪些选项是合法的，以及它们是否需要参数，从而使`getopt`函数能够正确地解析命令行参数。接受选项字符串的格式为一个字符串，由选项和参数组成，每个选项用一个字符表示，如果选项需要参数，则在选项字符后面跟一个冒号。例如，字符串`"ab:c"`表示程序支持三个选项`-a`、`-b`和`-c`, 其中`-c`选项需要一个参数。
 <a name="kBmQw"></a>
-### 3. fscanf的用法
+## 3. fscanf的用法
 `fscanf`是C语言标准库中的一个函数，它可以从一个文件中读取格式化数据，并将读取的结果存储到指定的变量中，该函数返回成功填充参数列表的项目数。`fscanf`函数的基本格式如下：
 ```c
 int fscanf(FILE *stream, const char *format, ...);
@@ -106,7 +104,7 @@ int main() {
 ```
 在上面的例子中，`fscanf`函数的第一个参数是文件指针`fp`，第二个参数是格式化字符串`"%d %d %d"`，它表示要读取三个整数，每个整数之间用空格分隔。第三个、第四个和第五个参数分别是三个整数变量`a`、`b`、`c`的地址，`fscanf`函数将读取到的整数存储到这些变量中。最后，我们打印出这些变量的值，以检查是否正确读取了文件中的数据。
 <a name="dKoHs"></a>
-### 4. 编写程序
+## 4. 编写程序
 这个实验不是真的让你去实现一个cache，而是让你编写一个能对访问记录进行应答的程序，这也是为什么writeup里强调所有的内存访问操作所需的块都不会超过行的容量<br />![yuque_diagram.png](https://cdn.nlark.com/yuque/0/2023/png/29536731/1678952903754-2052873c-6eb8-47c2-84e6-48ae84c0df8f.png)
 
 1. cache结构声明
@@ -322,6 +320,6 @@ void access_cache(cache* my_cache, int s, int b, char* trace_name, int* hit_coun
 }
 ```
 <a name="XOedv"></a>
-### 5. 结果
+## 5. 结果
 ![image.png](https://cdn.nlark.com/yuque/0/2023/png/29536731/1678885115012-43a6dad1-7672-42f8-b302-42c04af83585.png)
 
