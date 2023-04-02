@@ -2666,8 +2666,8 @@ mjx-container[display='true'] + br {
 code {
   padding: 2px 4px;
   overflow-wrap: break-word;
-  color: #a31acb;
-  background: #ffffd0;
+  color: #e900ff;
+  background: #ffc600;
   border-radius: 3px;
   font-size: 18px;
 }

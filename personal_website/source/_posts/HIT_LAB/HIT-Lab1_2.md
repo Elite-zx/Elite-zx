@@ -1,5 +1,5 @@
 ---
-title: HIT-OSLab0,1,2 
+title: HIT-OSLab0-1-2 
 date: 2023/03/24
 categories:
 - OS
