@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"elite-zx.github.io","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"mac"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="lab4 cachelab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cachelab: cache simulator">
+<meta property="og:url" content="http://elite-zx.github.io/2023/03/16/cache/index.html">
+<meta property="og:site_name" content="Elite-X">
+<meta property="og:description" content="lab4 cachelab">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/29536731/1678952903754-2052873c-6eb8-47c2-84e6-48ae84c0df8f.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/29536731/1678885115012-43a6dad1-7672-42f8-b302-42c04af83585.png">
+<meta property="article:published_time" content="2023-03-16T04:00:00.000Z">
+<meta property="article:modified_time" content="2023-03-28T00:59:55.991Z">
+<meta property="article:author" content="Elite-X">
+<meta property="article:tag" content="Foundation">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2023/png/29536731/1678952903754-2052873c-6eb8-47c2-84e6-48ae84c0df8f.png">
+
+
+<link rel="canonical" href="http://elite-zx.github.io/2023/03/16/cache/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://elite-zx.github.io/2023/03/16/cache/","path":"2023/03/16/cache/","title":"Cachelab: cache simulator"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Cachelab: cache simulator | Elite-X</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Elite-X</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description"><font color="#4E2161">询的博客</font></p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>About</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#lab4-cachelab"><span class="nav-number">1.</span> <span class="nav-text"> lab4 cachelab</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88"><span class="nav-number">1.1.</span> <span class="nav-text"> 1. 要做什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-getopt%E5%87%BD%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text"> 2. getopt函数的用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-fscanf%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">1.3.</span> <span class="nav-text"> 3. fscanf的用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E7%BC%96%E5%86%99%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.4.</span> <span class="nav-text"> 4. 编写程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E7%BB%93%E6%9E%9C"><span class="nav-number">1.5.</span> <span class="nav-text"> 5. 结果</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Elite-X"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Elite-X</p>
+  <div class="site-description" itemprop="description"><font color="#DEA057">Talk is cheap,show me the code</font></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://elite-zx.github.io/2023/03/16/cache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Elite-X">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Elite-X">
+      <meta itemprop="description" content="<font color="#DEA057">Talk is cheap,show me the code</font>">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Cachelab: cache simulator | Elite-X">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Cachelab: cache simulator
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-03-16 00:00:00" itemprop="dateCreated datePublished" datetime="2023-03-16T00:00:00-04:00">2023-03-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-03-27 20:59:55" itemprop="dateModified" datetime="2023-03-27T20:59:55-04:00">2023-03-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">In</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/CSAPP/" itemprop="url" rel="index"><span itemprop="name">CSAPP</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">Views: </span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <meta name="referrer" content="no-referrer">
+<a name="HHpvX"></a>
+<h1 id="lab4-cachelab"><a class="markdownIt-Anchor" href="#lab4-cachelab"></a> lab4 cachelab</h1>
+<span id="more"></span>
+<h2 id="1-要做什么"><a class="markdownIt-Anchor" href="#1-要做什么"></a> 1. 要做什么</h2>
+<ol>
+<li>组索引位数 -s  （<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><msup><mn>2</mn><mi>s</mi></msup></mrow><annotation encoding="application/x-tex">S = 2^s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">s</span></span></span></span></span></span></span></span></span></span></span>为高速缓存组的组数）</li>
+<li>高速缓存行数 -E</li>
+<li>块偏移位数 -b （<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>=</mo><msup><mn>2</mn><mi>b</mi></msup></mrow><annotation encoding="application/x-tex">B = 2^b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span></span></span></span></span></span></span></span>为高速缓存块的大小）</li>
+</ol>
+<p>根据内存访问记录，输出每条访问的结果（hit/miss/evict)，输出操作通过调用<code>printSummary(hit_count, miss_count, eviction_count)</code>函数完成，输出结果应当与作者提供给我们的<code>reference cache simulator</code>相同，运行<code>make</code>+<code>./test-csim</code>获取评分<br>
+<a name="i3aH1"></a></p>
+<h2 id="2-getopt函数的用法"><a class="markdownIt-Anchor" href="#2-getopt函数的用法"></a> 2. getopt函数的用法</h2>
+<p>由于三个参数通过命令行输入，因此我们需要通过C语言库中的<code>getopt</code>函数，结合switch语句从命令行中获取参数值 <br>C语言中的<code>main</code>函数是程序的入口函数，它包含两个参数：<code>argc</code>和<code>argv</code>。它们的作用如下：</p>
+<ol>
+<li>argc参数</li>
+</ol>
+<p>argc参数表示程序运行时命令行参数的个数（argument count），包括程序名本身。因此，argc的值至少为1，即第一个参数是程序名本身。如果程序没有接受任何命令行参数，则argc的值为1。</p>
+<ol start="2">
+<li>argv参数</li>
+</ol>
+<p>argv参数是一个字符串指针数组（argument vector），每个元素指向一个命令行参数。其中，argv[0]指向程序名本身，argv[1]、argv[2]等等依次指向后续的命令行参数。<br>通过argc和argv参数，程序可以接收命令行传递的参数，从而实现更加灵活和可配置的功能。例如，可以通过命令行参数指定程序要处理的文件名、程序要使用的配置文件、程序要输出的日志级别等等。程序可以根据不同的命令行参数采取不同的行为，从而实现更加灵活和可配置的功能。<br>C语言中的<code>getopt</code>函数可以帮助程序解析命令行参数。<code>getopt</code>函数通常与<code>argc</code>和<code>argv</code>参数一起使用，可以从命令行中提取选项和参数，并根据需要执行相应的操作。以下是<code>getopt</code>函数的一般用法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> opt;</span><br><span class="line">    <span class="keyword">while</span> ((opt = getopt(argc, argv, <span class="string">&quot;abc:d&quot;</span>)) != <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">switch</span> (opt) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;a&#x27;</span>:</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;Option -a\n&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;b&#x27;</span>:</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;Option -b\n&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;c&#x27;</span>:</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;Option -c with value &#x27;%s&#x27;\n&quot;</span>, optarg);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;d&#x27;</span>:</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;Option -d\n&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&#x27;?&#x27;</span>:</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;Unknown option: %c\n&quot;</span>, optopt);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，<code>getopt</code>函数的第一个参数是<code>argc</code>，第二个参数是<code>argv</code>，第三个参数是一个字符串，它包含可接受的选项和参数信息。在这个字符串中，每个字符表示一个选项，如果这个选项需要接受一个参数，则在后面加上一个冒号。例如，<code>&quot;abc:d&quot;</code>表示可接受的选项有<code>-a</code>、<code>-b</code>、<code>-c</code>和<code>-d</code>，其中<code>-c</code>选项需要接受一个参数。<br><code>getopt</code>函数会循环遍历命令行中的所有选项，每次返回一个选项和其参数（如果有）。在循环中，使用<code>switch</code>语句根据选项进行相应的操作。如果<code>getopt</code>函数发现了一个未知的选项，它会返回<code>?</code>,并将这个选项保存在<code>optopt</code>变量中。<br>以下是一些示例命令行及其对应的输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ ./a.out -a -b -c filename -d</span><br><span class="line">Option -a</span><br><span class="line">Option -b</span><br><span class="line">Option -c with value <span class="string">&#x27;filename&#x27;</span></span><br><span class="line">Option -d</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ./a.out -a -b -c</span><br><span class="line">Option -a</span><br><span class="line">Option -b</span><br><span class="line">Unknown option: c</span><br></pre></td></tr></table></figure>
+<p>在使用<code>getopt</code>函数时，需要注意以下几点：</p>
+<ol>
+<li>在循环中，<code>optarg</code>变量保存当前选项的参数（如果有），可以通过这个变量获取参数的值。变量类型为字符串，可通过<code>atoi</code>函数转化为整型。</li>
+<li>如果一个选项需要接受一个参数，但是没有给出参数，或者参数不合法，<code>getopt</code>函数会返回<code>?</code>，并将这个选项保存在<code>optopt</code>变量</li>
+<li>如果一个选项在可接受的选项字符串中没有指定，<code>getopt</code>函数会返回<code>-1</code>，并结束循环</li>
+</ol>
+<p><code>getopt</code>函数的第三个参数是一个字符串，用于指定程序支持的命令行选项和参数。<br>虽然<code>getopt</code>函数可以遍历所有命令行参数，但是在不指定可接受选项字符串的情况下，<code>getopt</code>函数不知道哪些参数是选项，哪些是参数，也不知道选项是否需要参数。指定<br>可接受选项字符串可以告诉<code>getopt</code>函数哪些选项是合法的，以及它们是否需要参数，从而使<code>getopt</code>函数能够正确地解析命令行参数。接受选项字符串的格式为一个字符串，由选项和参数组成，每个选项用一个字符表示，如果选项需要参数，则在选项字符后面跟一个冒号。例如，字符串<code>&quot;ab:c&quot;</code>表示程序支持三个选项<code>-a</code>、<code>-b</code>和<code>-c</code>, 其中<code>-c</code>选项需要一个参数。<br>
+<a name="kBmQw"></a></p>
+<h2 id="3-fscanf的用法"><a class="markdownIt-Anchor" href="#3-fscanf的用法"></a> 3. fscanf的用法</h2>
+<p><code>fscanf</code>是C语言标准库中的一个函数，它可以从一个文件中读取格式化数据，并将读取的结果存储到指定的变量中，该函数返回成功填充参数列表的项目数。<code>fscanf</code>函数的基本格式如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">fscanf</span><span class="params">(FILE *stream, <span class="type">const</span> <span class="type">char</span> *format, ...)</span>;</span><br></pre></td></tr></table></figure>
+<p>其中，第一个参数<code>stream</code>是指向要读取数据的文件的指针；第二个参数<code>format</code>是一个字符串，用于指定读取数据的格式；第三个及之后的参数是要读取数据的变量名。<br>例如，如果你有一个文件<code>data.txt</code>，里面包含了三个整数，每个整数之间用空格分隔，你可以使用下面的代码将这些整数读取到三个变量<code>a</code>、<code>b</code>、<code>c</code>中</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    FILE *fp = fopen(<span class="string">&quot;data.txt&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="type">int</span> a, b, c;</span><br><span class="line">    <span class="built_in">fscanf</span>(fp, <span class="string">&quot;%d %d %d&quot;</span>, &amp;a, &amp;b, &amp;c);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a = %d, b = %d, c = %d\n&quot;</span>, a, b, c);</span><br><span class="line">    fclose(fp);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，<code>fscanf</code>函数的第一个参数是文件指针<code>fp</code>，第二个参数是格式化字符串<code>&quot;%d %d %d&quot;</code>，它表示要读取三个整数，每个整数之间用空格分隔。第三个、第四个和第五个参数分别是三个整数变量<code>a</code>、<code>b</code>、<code>c</code>的地址，<code>fscanf</code>函数将读取到的整数存储到这些变量中。最后，我们打印出这些变量的值，以检查是否正确读取了文件中的数据。<br>
+<a name="dKoHs"></a></p>
+<h2 id="4-编写程序"><a class="markdownIt-Anchor" href="#4-编写程序"></a> 4. 编写程序</h2>
+<p>这个实验不是真的让你去实现一个cache，而是让你编写一个能对访问记录进行应答的程序，这也是为什么writeup里强调所有的内存访问操作所需的块都不会超过行的容量<br><img src="https://cdn.nlark.com/yuque/0/2023/png/29536731/1678952903754-2052873c-6eb8-47c2-84e6-48ae84c0df8f.png" alt="yuque_diagram.png"></p>
+<ol>
+<li>cache结构声明</li>
+</ol>
+<p>cache本质上是一个2D array，因此我们在结构体中声明一个指向二维数组的指针</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">cache_line</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> valid_bit;</span><br><span class="line">	<span class="type">int</span> tag;</span><br><span class="line">    <span class="type">int</span> time_stamp;</span><br><span class="line">&#125;cache_line;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">cache</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">int</span> S;</span><br><span class="line">	<span class="type">int</span> E;</span><br><span class="line">	<span class="type">int</span> B;</span><br><span class="line">	cache_line** Cache; </span><br><span class="line">&#125;cache;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>main</li>
+</ol>
+<p>主要在于正确解析命令行参数，会用<code>getopt</code>就行</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123; 	</span><br><span class="line">    <span class="type">int</span>	hit_count = <span class="number">0</span>, miss_count = <span class="number">0</span>, eviction_count = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> s, E, b,opt;</span><br><span class="line">    <span class="type">char</span>* trace_name = (<span class="type">char</span>*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(<span class="type">char</span>)*<span class="number">30</span>);</span><br><span class="line">    cache* my_cache;</span><br><span class="line">    <span class="keyword">while</span>((opt = <span class="built_in">getopt</span>(argc, argv, <span class="string">&quot;s:E:b:t:&quot;</span>))!= <span class="number">-1</span>)&#123;</span><br><span class="line">		<span class="keyword">switch</span>(opt)&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;s&#x27;</span>:</span><br><span class="line">		   s = <span class="built_in">atoi</span>(optarg);</span><br><span class="line">		   <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;E&#x27;</span>:</span><br><span class="line">		   E = <span class="built_in">atoi</span>(optarg);</span><br><span class="line">		   <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;b&#x27;</span>:</span><br><span class="line">		   b = <span class="built_in">atoi</span>(optarg);</span><br><span class="line">		   <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;t&#x27;</span>:</span><br><span class="line">		   <span class="built_in">strcpy</span>(trace_name,optarg);</span><br><span class="line">		   <span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;?&#x27;</span>:</span><br><span class="line">		   <span class="built_in">printf</span>(<span class="string">&quot;unknown option: %c\n&quot;</span>,optopt);</span><br><span class="line">		   <span class="keyword">break</span>;</span><br><span class="line">		   &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     my_cache = <span class="built_in">construct_cache</span>(s,E,b);</span><br><span class="line">     <span class="built_in">access_cache</span>(my_cache, s, b, trace_name, &amp;hit_count, &amp;miss_count, &amp;eviction_count);</span><br><span class="line">     <span class="built_in">free_cache</span>(my_cache);</span><br><span class="line">     <span class="built_in">printSummary</span>(hit_count, miss_count, eviction_count);</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>construct_cache</li>
+</ol>
+<p>根据输入的命令行参数<code>s</code>,<code>E</code>,<code>b</code>构造cache，并初始化每一个高速缓存行</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">cache* <span class="title">construct_cache</span><span class="params">(<span class="type">int</span> s, <span class="type">int</span> E, <span class="type">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cache* my_cache =(cache*) <span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(cache));  <span class="comment">// construct Cache</span></span><br><span class="line"> my_cache-&gt;S = <span class="number">1</span> &lt;&lt; s;</span><br><span class="line"> my_cache-&gt;B = <span class="number">1</span> &lt;&lt; b;</span><br><span class="line"> my_cache-&gt;E = E;</span><br><span class="line"> my_cache-&gt;Cache = (cache_line**)<span class="built_in">malloc</span>(my_cache-&gt;S * <span class="built_in">sizeof</span>(cache_line*) );</span><br><span class="line"> <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>; i&lt;my_cache-&gt;S;++i)</span><br><span class="line"> &#123;</span><br><span class="line">	my_cache-&gt;Cache[i] = (cache_line*)<span class="built_in">malloc</span>(my_cache-&gt;E * <span class="built_in">sizeof</span>(cache_line));</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>; j&lt;my_cache-&gt;E; ++j) <span class="comment">// initialize</span></span><br><span class="line">	&#123;</span><br><span class="line">		my_cache-&gt;Cache[i][j].valid_bit = <span class="number">0</span>;</span><br><span class="line">		my_cache-&gt;Cache[i][j].tag = <span class="number">-1</span>;</span><br><span class="line">		my_cache-&gt;Cache[i][j].time_stamp = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> my_cache;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>update_LRU</li>
+</ol>
+<p>我是通过对每个高速缓冲行维护一个time_stamp实现的LRU，因此更新Cache中各行的LRU操作很重要。对访问的行，time_stamp置0，有效位和tag位也要做更新，其余行的time_stamp加1</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">update_LRU</span><span class="params">(cache* my_cache, <span class="type">int</span> ad_set, <span class="type">int</span> ad_tag, <span class="type">int</span> line_index)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; my_cache-&gt;E; ++i)</span><br><span class="line">		<span class="keyword">if</span>(my_cache-&gt;Cache[ad_set][i].valid_bit) ++(my_cache-&gt;Cache[ad_set][i].time_stamp);</span><br><span class="line"></span><br><span class="line">	my_cache-&gt;Cache[ad_set][line_index].time_stamp = <span class="number">0</span>;</span><br><span class="line">	my_cache-&gt;Cache[ad_set][line_index].valid_bit = <span class="number">1</span>;</span><br><span class="line">	my_cache-&gt;Cache[ad_set][line_index].tag = ad_tag;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>get_line_index</li>
+</ol>
+<p>每次访问cache，要得知hit，miss，eviction等信息，通过该函数实现：查找cache中所有行，如果找到有效位为1且tag位符合的行，则命中，否则miss</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">get_line_index</span><span class="params">(cache* my_cache, <span class="type">int</span> ad_set, <span class="type">int</span> ad_tag)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; my_cache-&gt;E; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(my_cache-&gt;Cache[ad_set][i].valid_bit &amp;&amp; my_cache-&gt;Cache[ad_set][i].tag == ad_tag)</span><br><span class="line">			<span class="keyword">return</span> i;  <span class="comment">// hit</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>; <span class="comment">// miss</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>is_not_full</li>
+</ol>
+<p>。进一步对miss，遍历cache所有行，如果找不到有效位为0的行，则说明cache is full，那么就额外涉及有eviction操作</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">is_not_full</span><span class="params">(cache* my_cache, <span class="type">int</span> ad_set)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; my_cache-&gt;E; ++i)</span><br><span class="line">		<span class="keyword">if</span>(!my_cache-&gt;Cache[ad_set][i].valid_bit) <span class="keyword">return</span> i;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="7">
+<li>find_LRU</li>
+</ol>
+<p>对eviction操作，执行我们的LRU替换策略，先找到时间戳最大的行，再进行覆盖操作</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">find_LRU</span><span class="params">(cache* my_cache, <span class="type">int</span> ad_set)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> max_stamp = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> evict_line = <span class="number">0</span>;</span><br><span class="line">	<span class="type">int</span> temp = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; my_cache-&gt;E; ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		temp = my_cache-&gt;Cache[ad_set][i].time_stamp;</span><br><span class="line">		<span class="keyword">if</span>(temp &gt; max_stamp)</span><br><span class="line">			&#123;</span><br><span class="line">				max_stamp = temp;</span><br><span class="line">				evict_line = i;</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> evict_line;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="8">
+<li>access_cache</li>
+</ol>
+<p>我们需要用<code>fscanf</code>对数据访问操作进行解析，注意此处的<code>&quot; %c %x,%d&quot;</code>,<code>%c</code>前有一个whitespace，目的在于忽略对指令访问操作。由于不同数据访问指令执行的cache操作次数不同，因此我将对cache进行操作的部分分割成一个独立的函数<code>real_access_cache</code>。M等于L+S，因此需要两次更新。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">access_cache</span><span class="params">(cache* my_cache, <span class="type">int</span> s, <span class="type">int</span> b, <span class="type">char</span>* trace_name, <span class="type">int</span>* hit_count_ptr, <span class="type">int</span>* miss_count_ptr, <span class="type">int</span>* eviction_count_ptr)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line"> 	 FILE* pFile;   <span class="comment">// receive access</span></span><br><span class="line">     pFile = <span class="built_in">fopen</span>(trace_name,<span class="string">&quot;r&quot;</span>);</span><br><span class="line">     <span class="keyword">if</span>(!pFile) <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">     <span class="type">char</span> identifier;</span><br><span class="line">     <span class="type">unsigned</span> address;</span><br><span class="line">     <span class="type">int</span> size;</span><br><span class="line">     <span class="keyword">while</span>(<span class="built_in">fscanf</span>(pFile,<span class="string">&quot; %c %x,%d&quot;</span>,&amp;identifier,&amp;address,&amp;size)&gt;<span class="number">0</span>)</span><br><span class="line">     &#123;     </span><br><span class="line">		<span class="type">int</span> mask =(<span class="type">unsigned</span>)(<span class="number">-1</span>)&gt;&gt;(<span class="number">64</span>-s);</span><br><span class="line">		<span class="type">int</span> ad_set = (address &gt;&gt; b) &amp; mask;</span><br><span class="line">		<span class="type">int</span> ad_tag = address &gt;&gt; (s+b);</span><br><span class="line">		<span class="keyword">switch</span>(identifier)</span><br><span class="line">		&#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;M&#x27;</span>:</span><br><span class="line">			<span class="built_in">real_access_cache</span>(my_cache, ad_set, ad_tag, hit_count_ptr, miss_count_ptr, eviction_count_ptr);</span><br><span class="line">			<span class="built_in">real_access_cache</span>(my_cache, ad_set, ad_tag, hit_count_ptr, miss_count_ptr, eviction_count_ptr);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;L&#x27;</span>:</span><br><span class="line">			<span class="built_in">real_access_cache</span>(my_cache, ad_set, ad_tag, hit_count_ptr, miss_count_ptr, eviction_count_ptr);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">&#x27;S&#x27;</span>:</span><br><span class="line">			<span class="built_in">real_access_cache</span>(my_cache, ad_set, ad_tag, hit_count_ptr, miss_count_ptr, eviction_count_ptr);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">fclose</span>(pFile);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="type">void</span> <span class="title">real_access_cache</span><span class="params">(cache* my_cache, <span class="type">int</span> ad_set, <span class="type">int</span> ad_tag, <span class="type">int</span>* hit_count_ptr, <span class="type">int</span>* miss_count_ptr, <span class="type">int</span>* eviction_count_ptr)</span></span></span><br><span class="line"><span class="function"> </span>&#123;</span><br><span class="line">    <span class="type">int</span> line_index,free_line, evict_line;</span><br><span class="line">	line_index = <span class="built_in">get_line_index</span>(my_cache, ad_set, ad_tag);</span><br><span class="line">	<span class="keyword">if</span>(line_index != <span class="number">-1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		++(*hit_count_ptr);</span><br><span class="line">		<span class="built_in">update_LRU</span>(my_cache, ad_set, ad_tag, line_index);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">else</span> </span><br><span class="line">	&#123;</span><br><span class="line">		free_line = <span class="built_in">is_not_full</span>(my_cache, ad_set);</span><br><span class="line">		<span class="keyword">if</span>(free_line != <span class="number">-1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			++(*miss_count_ptr);</span><br><span class="line">			<span class="built_in">update_LRU</span>(my_cache, ad_set, ad_tag, free_line);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			++(*miss_count_ptr);</span><br><span class="line">			++(*eviction_count_ptr);</span><br><span class="line">			evict_line = <span class="built_in">find_LRU</span>(my_cache,ad_set);</span><br><span class="line">			<span class="built_in">update_LRU</span>(my_cache, ad_set, ad_tag, evict_line);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a name="XOedv"></a></p>
+<h2 id="5-结果"><a class="markdownIt-Anchor" href="#5-结果"></a> 5. 结果</h2>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/29536731/1678885115012-43a6dad1-7672-42f8-b302-42c04af83585.png" alt="image.png"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div>Buy me a coffee</div>
+  <button>
+    Donate
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="Elite-X WeChat Pay">
+        <span>WeChat Pay</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="Elite-X Alipay">
+        <span>Alipay</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>Post author:  </strong>Elite-X
+  </li>
+  <li class="post-copyright-link">
+      <strong>Post link: </strong>
+      <a href="http://elite-zx.github.io/2023/03/16/cache/" title="Cachelab: cache simulator">http://elite-zx.github.io/2023/03/16/cache/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Foundation/" rel="tag"># Foundation</a>
+          </div>
+
+        
+  <div class="addthis_inline_share_toolbox social-like">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-64093c222c46705f" async="async"></script>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/06/assembly/" rel="prev" title="汇编语言【王爽】实验流程">
+                  <i class="fa fa-chevron-left"></i> 汇编语言【王爽】实验流程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/03/24/HIT_LAB/HIT-Lab1_2/" rel="next" title="HIT-OSLab0-1-2">
+                  HIT-OSLab0-1-2 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments gitalk-container"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Elite-X</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+<!--
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a>
+  </div>
+-->
+
+
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/Elite-zx" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+
+  <script class="next-config" data-name="enableMath" type="application/json">true</script><script class="next-config" data-name="mathjax" type="application/json">{"enable":true,"tags":"none","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js","integrity":"sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI="}}</script>
+<script src="/js/third-party/math/mathjax.js"></script>
+
+
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: 'unset',
+  left: '32px',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.css" integrity="sha256-AJnUHL7dBv6PGaeyPQJcgQPDjt/Hn/PvYZde1iqfp8U=" crossorigin="anonymous">
+
+<script class="next-config" data-name="gitalk" type="application/json">{"enable":true,"github_id":"Elite-zx","repo":"Elite-zx.github.io","client_id":"e81d3036a2dbceba447b","client_secret":"db822a7cb4b94e9ba71151c75033f3df77e10827","admin_user":"Elite-zx","distraction_free_mode":true,"proxy":"https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token","language":"en","js":{"url":"https://cdnjs.cloudflare.com/ajax/libs/gitalk/1.8.0/gitalk.min.js","integrity":"sha256-MVK9MGD/XJaGyIghSVrONSnoXoGh3IFxLw0zfvzpxR4="},"path_md5":"23946d1d5b256917005bf19452f625dc"}</script>
+<script src="/js/third-party/comments/gitalk.js"></script>
+
+</body>
+</html>
