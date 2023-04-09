@@ -6,14 +6,14 @@ categories:
 tags: 
 - tutorial
 ---
-
 <meta name="referrer" content="no-referrer"/>
-最终效果：<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/29536731/1679904915178-2b8d446d-4d5f-42d7-9850-d5a4c0dc0bcf.png#averageHue=%232dc92b&clientId=u8ce3d915-14ae-4&from=paste&height=565&id=ueeea8242&name=image.png&originHeight=848&originWidth=1914&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=159245&status=done&style=none&taskId=u5fb92b60-b558-40fb-9a44-b1f4da5e687&title=&width=1276)
-<a name="s7Ott"></a>
-<!--more-->
+
+最终效果:<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/29536731/1679904915178-2b8d446d-4d5f-42d7-9850-d5a4c0dc0bcf.png#averageHue=%232dc92b&clientId=u8ce3d915-14ae-4&from=paste&height=565&id=ueeea8242&name=image.png&originHeight=848&originWidth=1914&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=159245&status=done&style=none&taskId=u5fb92b60-b558-40fb-9a44-b1f4da5e687&title=&width=1276) 
+
 # 1. 安装GNOME Tweaks
 这个软件可以让你配置Ubuntu的交互界面，你可以在Ubuntu自带的由GNOME Software 下载<br />![image.png](https://cdn.nlark.com/yuque/0/2023/png/29536731/1679900946204-c742a5d9-a91a-4b67-8a85-b82a66b80d98.png#averageHue=%235e5e5e&clientId=ud601214a-d7ed-4&from=paste&height=390&id=u117233a8&name=image.png&originHeight=743&originWidth=1084&originalType=binary&ratio=1.5625&rotation=0&showTitle=false&size=75219&status=done&style=none&taskId=uaaab7274-262a-40dc-b6b7-e1858e9749d&title=&width=568.760009765625)
 
+<!--more-->
 <a name="i6Rr5"></a>
 # 2.下载安装模拟Mac风格的交互界面主题[WhiteSur-gtk-theme](https://github.com/vinceliuice/WhiteSur-gtk-theme)
 ```bash
