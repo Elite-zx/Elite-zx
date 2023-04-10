@@ -99,7 +99,6 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: butterfly
 
-
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
@@ -117,3 +116,9 @@ markdown_it_plus:
     typographer:
     quotes: “”‘’
     pre_class: highlight
+
+search:
+  path: search.xml
+  field: post # post:文章范围、page:页面范围、all:覆盖所有
+  content: true # 内容是否包含每一篇文章的全部内容
+  template:  # ./search.xml 指定定制的XML模板
