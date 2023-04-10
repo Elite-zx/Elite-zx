@@ -7,9 +7,12 @@ tags:
 - Foundation
 ---
 <meta name="referrer" content="no-referrer"/>
+
 <a name="IR5gF"></a>
 # lab1 dataLab
+
 <!--more-->
+
 <a name="RKm5i"></a>
 ## 前提
 确保有一个linux系统，并已经执行过以下两条命令:<br />安装gcc：`sudo apt-get install build-essential`  <br />安装[gcc的交叉编译环境](https://askubuntu.com/questions/855945/what-exactly-does-gcc-multilib-mean-on-ubuntu#:~:text=gcc%2Dmultilib%20is%20useful%20for,you%20get%20the%20idea).)：`sudo apt-get install gcc-multilib`，因为实验的程序需要以32位方式编译<br />在[CMU的CSAPP网站](http://csapp.cs.cmu.edu/3e/labs.html)上下载实验所需资料，包括**README, Writeup，Self-Study Handout，**这三部分均包含对实验的要求说明（Handout的说明在其包含的bits.c文件中由注释给出），Self-Study Handout包括用于测试的文件

@@ -4,7 +4,7 @@
 
 # Site
 title: ELITE-X  
-subtitle: 
+subtitle: Talk is cheap, show me the code 
 description: xun's blog
 keywords:
 author: Elite-X
@@ -119,6 +119,5 @@ markdown_it_plus:
 
 search:
   path: search.xml
-  field: post # post:文章范围、page:页面范围、all:覆盖所有
-  content: true # 内容是否包含每一篇文章的全部内容
-  template:  # ./search.xml 指定定制的XML模板
+  field: post
+  content: true
