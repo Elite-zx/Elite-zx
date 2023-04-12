@@ -1,5 +1,5 @@
 ---
-title: "Cachelab: cache simulator"
+title: "cachelab: cache simulator"
 date: 2023/03/16
 categories:
 - CSAPP
