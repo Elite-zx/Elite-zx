@@ -584,7 +584,7 @@ fireworks:
 
 # Mouse click effects: Heart symbol (鼠標點擊效果: 愛心)
 click_heart:
-  enable: true 
+  enable: false 
   mobile: false
 
 # Mouse click effects: words (鼠標點擊效果: 文字)
@@ -606,8 +606,8 @@ display_mode: dark
 beautify:
   enable: true 
   field: post # site/post
-  title-prefix-icon: # '\f0c1'
-  title-prefix-icon-color: # '#F47466'
+  title-prefix-icon:  '\f0e7'
+  title-prefix-icon-color:  '#ffb821'
 
 # Global font settings
 # Don't modify the following settings unless you know how they work (非必要不要修改)
@@ -895,6 +895,7 @@ inject:
   bottom:
   - <canvas id="universe"></canvas>
   - <script defer src="/js/universe.js"></script>
+  - <script defer src="/js/cursor.js"></script>
 
 # CDN
 # Don't modify the following settings unless you know how they work
