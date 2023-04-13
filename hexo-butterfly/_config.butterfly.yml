@@ -101,7 +101,7 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: "#80489C"
+index_img: /img/top_img.jpg
 
 # If the banner of page not setting, it will show the top_img
 default_top_img:
@@ -111,7 +111,7 @@ archive_img:
 
 # If the banner of tag page not setting, it will show the top_img
 # note: tag page, not tags page (子標籤頁面的 top_img)
-tag_img:
+tag_img: 
 
 # The banner image of tag page
 # format:
