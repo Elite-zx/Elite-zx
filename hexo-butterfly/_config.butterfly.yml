@@ -104,7 +104,7 @@ disable_top_img: false
 index_img: /img/top_img.jpg
 
 # If the banner of page not setting, it will show the top_img
-default_top_img:
+default_top_img: '#453C67'
 
 # The banner image of archive page
 archive_img:
@@ -754,9 +754,9 @@ readmode: true
 
 # dark mode
 darkmode:
-  enable: true
+  enable: true 
   # Toggle Button to switch dark/light mode
-  button: true
+  button: false
   # Switch dark/light mode automatically (自動切換 dark mode和 light mode)
   # autoChangeMode: 1  Following System Settings, if the system doesn't support dark mode, it will switch dark mode between 6 pm to 6 am
   # autoChangeMode: 2  Switch dark mode between 6 pm to 6 am

@@ -1,5 +1,5 @@
 ---
-title: "[csapp] datalab, bomblab, attacklab"
+title: "[CSAPP] datalab, bomblab, attacklab"
 date: 2023/03/06
 categories:
 - CSAPP
