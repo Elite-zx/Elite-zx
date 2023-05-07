@@ -25,7 +25,7 @@ highlight_theme: mac #  darker / pale night / light / ocean / mac / mac light / 
 highlight_copy: true # copy button
 highlight_lang: true # show the code language
 highlight_shrink: false # true: shrink the code blocks / false: expand the code blocks | none: expand code blocks and hide the button
-highlight_height_limit: false # unit: px
+highlight_height_limit: false #unit: px
 code_word_wrap: false
 
 # copy settings
@@ -890,7 +890,6 @@ css_prefix: true
 inject:
   head:
     - <link rel="stylesheet" href="/css/universe.css">
-    - <link rel="stylesheet" href="/css/custom_code.css">
     - <link rel="stylesheet" href="/css/custom.css">
     - <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;1,300&display=swap">
   bottom:
