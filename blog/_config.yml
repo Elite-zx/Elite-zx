@@ -40,7 +40,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:
@@ -106,7 +106,10 @@ deploy:
   repository: git@github.com:Elite-zx/Elite-zx.github.io.git
   branch: main
 
+
 markdown_it_plus:
+    prependRoot: true
+    postAsset: true
     highlight: true
     html: true
     xhtmlOut: true
@@ -116,6 +119,10 @@ markdown_it_plus:
     typographer:
     quotes: “”‘’
     pre_class: highlight
+    plugins:
+          - plugin:
+              name: markdown-it-checkbox
+              enable: true
 
 search:
   path: search.xml
