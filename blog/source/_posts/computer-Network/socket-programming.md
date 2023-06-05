@@ -1,5 +1,5 @@
 ---
-title: "[计算机自顶向下] Socket Programming Assignment + Miscellaneous Labs "
+title: "[计算机网络自顶向下] Socket Programming Assignment + Miscellaneous Labs "
 date: 2023/05/24
 categories:
 - Computer Network
@@ -47,7 +47,7 @@ while True:
     serverSocket.sendto(modifiedMessage.encode(),clientAddress)
 ```
 3. result
-![](socket-programming/d6aeb5279b675d7e9059c0a237a2fd3.png)
+![](socket-programming/6aeb5279b675d7e9059c0a237a2fd3.png)
 ![](socket-programming/e93c1c9715ac60bb573dff2d805ff6c1.png)
 ## 1.2. TCP
 1. TCPClient.py
