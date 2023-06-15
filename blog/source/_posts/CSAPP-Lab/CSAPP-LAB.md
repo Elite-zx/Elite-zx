@@ -561,7 +561,7 @@ a7 = *(*(input+8)+2); // mov 0x8(%rbx), %rbx 更新%rbx
 2. 怎么触发
 
 1)谁调用了secret_phase：`secret_phase`既然作为一个函数，那么就需要被调用，邪恶博士不会做了炸弹而不接引线，因此我们要在`main`函数中寻找可能调用`secret_base`的语句，既然phase_1到phase_6我们都分析过源码，所以调用语句肯定只能存在`phase_defused`函数中，反汇编`phase_defused`函数，果然发现了调用`secret_phase`的指令
-![](attachment/d198271aa8a29539467dd82ee47ef6ad.png)
+![](https://cdn.nlark.com/yuque/0/2023/png/29536731/1677404954528-c0e39bd3-077e-49cd-a460-d820f2047ce8.png)
 2）在phase_defused中如何触发：从`main`函数可以看出，bomb文件在每次未触发炸弹而执行完一个phase的时候都会调用一次`phase_defused`。分析phase_defused，该函数当输入字符串表示分隔的数字值时，如果数字个数小于6个，直接返回，对应phase1~phase5；如果数字等于6个，继续执行，对应phase6
 ![](attachment/02e77af27b1c4e865e36db8907ca7b63.png)
 接着从地址`0x603870`处读取两个数字，一个字符串
