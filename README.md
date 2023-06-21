@@ -2,4 +2,4 @@
 - 😀 I luv C++
 - 📧 [email]: elite2022zx@gmail.com
 
-![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=Elite-zx&theme=blue-green&show_icons=true)
+![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=Elite-zx&theme=midnight-purple&show_icons=true)
