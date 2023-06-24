@@ -6,4 +6,4 @@
 
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Elite-zx&layout=compact&hide=javascript,html,css&langs_count=3)
 
-![Leetcode Stats](https://leetcard.jacoblin.cool/leetcode?site=cn/jacoblincool?font=Dancing_Script/JacobLinCool?theme=unicorn/elite_zx)
+![Leetcode Stats](https://leetcard.jacoblin.cool/elite_zx?font=Dancing_Script?theme=unicorn?site=cn)
