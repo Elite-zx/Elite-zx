@@ -14,12 +14,13 @@ Plug 'rhysd/vim-clang-format'
 Plug 'mhinz/vim-startify'
 Plug 'github/copilot.vim'
 Plug 'voldikss/vim-translator'
+Plug 'preservim/nerdcommenter'
 
 call plug#end()
 
-" NERDTree
-:let g:NERDTreeWinSize=20
-"LeaderF
+"" NERDTree
+let g:NERDTreeWinSize=20
+""LeaderF
 let g:Lf_PreviewInPopup = 1   
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
@@ -72,6 +73,7 @@ nnoremap <C-i> :PlugInstall<CR>
 nnoremap <C-l> :IndentLinesToggle<CR>
 nnoremap <leader>w :tabclose<CR>
 nnoremap <leader>t :NERDTreeToggle<CR> 
+
 " basic settings
 set nu  "show line
 syntax enable
@@ -82,18 +84,18 @@ filetype plugin indent on
 filetype on
 " vertical show commandline
 set wildmenu
-set wildoptions=pum  
+"set wildoptions=pum  
 
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
+"map <Left> <Nop>
+"map <Right> <Nop>
+"map <Up> <Nop>
+"map <Down> <Nop>
 set encoding=utf-8
 set fileencoding=utf-8
 set termencoding=utf-8
 set smarttab
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 set expandtab
 "set mouse=a
 set smartindent
@@ -112,6 +114,7 @@ set clipboard+=unnamed
 set tags=tags;
 " quick escape to normal mode
 set ttimeoutlen=50  
+set autowrite
 " Automatically select after adjusting the indentation
 vnoremap < <gv   
 vnoremap > >gv
