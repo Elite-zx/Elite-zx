@@ -50,3 +50,17 @@ sudo dpkg --set-selections < selections.txt
 sudo apt-get dselect-upgrade
 sudo apt-get dselect-upgrade
 
+#-------------------------------------------Mac style UI----------------------------------------
+git clone https://github.com/vinceliuice/WhiteSur-gtk-theme.git
+cd WhiteSur-gtk-theme
+./install.sh
+
+git clone https://github.com/vinceliuice/WhiteSur-icon-theme
+cd  WhiteSur-icon-theme
+./install.sh
+
+sudo apt install chrome-gnome-shell
+sudo apt install gnome-shell-extensions
+
+
+
