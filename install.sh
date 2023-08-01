@@ -25,6 +25,7 @@ sudo apt install bat
 apt install duf
 
 #----- -----------------------------------vim---------------------------------------------
+sudo apt install vim -y
 # enable clipboard
 sudo apt install vim-gtk3 -y
 
