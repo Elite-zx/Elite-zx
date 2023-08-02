@@ -16,6 +16,9 @@ sudo apt install cmake -y
 # libtool: manage shared library
 sudo apt install libtool -y
 
+# tree directory
+sudo apt install tree -y
+
 #----------------------------------------zsh---------------------------------------- 
 sudo apt install zsh -y
 
