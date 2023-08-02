@@ -19,6 +19,9 @@ sudo apt install libtool -y
 # tree directory
 sudo apt install tree -y
 
+#  net-tools
+sudo apt install net-tools -y
+
 #----------------------------------------zsh---------------------------------------- 
 sudo apt install zsh -y
 
