@@ -11,6 +11,10 @@ sudo apt install build-essential -y
 sudo apt install git -y
 # curl
 sudo apt install curl -y
+# cmake
+sudo apt install cmake -y
+# libtool: manage shared library
+sudo apt install libtool -y
 
 #----------------------------------------zsh---------------------------------------- 
 sudo apt install zsh -y
@@ -84,8 +88,7 @@ sudo apt install flameshot -y
 
 #--------------------------------------------use dpkg tools------------------------------------
 # dpkg --get-selections > selections.txt
-sudo dpkg --set-selections < selections.txt
-sudo apt-get dselect-upgrade
+sudo dpkg --set-selections < selections.txt -y
 sudo apt-get dselect-upgrade
 
 #-------------------------------------------Mac style UI----------------------------------------
