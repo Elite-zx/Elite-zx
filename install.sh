@@ -17,10 +17,7 @@ sudo apt install cmake -y
 sudo apt install libtool -y
 
 # tree directory
-sudo apt install tree -y
-
-#  net-tools
-sudo apt install net-tools -y
+sudo apt install tree
 
 #----------------------------------------zsh---------------------------------------- 
 sudo apt install zsh -y
