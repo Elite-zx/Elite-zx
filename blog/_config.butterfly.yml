@@ -666,7 +666,7 @@ aside:
   hide: false
   button: true
   mobile: true # display on mobile
-  position: right # left or right
+  position: left # left or right
   display:
     archive: true
     tag: true
@@ -681,7 +681,7 @@ aside:
       link: /about/
   card_announcement:
     enable: false
-    content: Here is my cosmos 
+    content: 
   card_recent_post:
     enable: false
     limit: 5 # if set 0 will show all
@@ -693,7 +693,7 @@ aside:
     expand: none # none/true/false
     sort_order: # Don't modify the setting unless you know how it works
   card_tags:
-    enable: true
+    enable: false
     limit: 40 # if set 0 will show all
     color: false
     orderby: random # Order of tags, random/name/length
@@ -723,7 +723,7 @@ busuanzi:
 # Formal: Month/Day/Year Time or Year/Month/Day Time
 runtimeshow:
   enable: true 
-  publish_date: 2023/4/3
+  publish_date: 2023/3/1
 
 # Aside widget - Newest Comments
 newest_comments:
