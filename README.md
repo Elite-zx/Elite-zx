@@ -1,6 +1,8 @@
 - 👋 Hi, I'm @Elite-zx, a CS student of internet university.
-- 😀 I luv C++
-- 📧 [email]: elite2022zx@gmail.com
+- ❤️  C++ er, vim er, linux er 
+- 📭 elite2022zx@gmail.com
+- 🔗 elite-zx.github.io
+- btw I use Ubuntu  
 
 ![XUN-Morris's GitHub stats](https://github-readme-stats.vercel.app/api?username=Elite-zx&theme=transparent&show_icons=true)
 
