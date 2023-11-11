@@ -16,8 +16,8 @@ Plug 'github/copilot.vim'
 Plug 'voldikss/vim-translator'
 Plug 'preservim/nerdcommenter'
 Plug 'godlygeek/tabular'
-Plug 'preservim/vim-markdown'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
+"Plug 'preservim/vim-markdown'
+"Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'romainl/vim-cool'
 Plug 'dracula/vim', { 'as': 'dracula' }
@@ -28,20 +28,38 @@ Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
 " ------------------------------------------plugin config------------------------------------------
-
-" NERDTree
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Nerd Tree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:NERDTreeWinPos = "left"
+let NERDTreeShowHidden=0
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=24
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark<Space>
+map <leader>nf :NERDTreeFind<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LeaderF
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:Lf_PreviewInPopup = 1   
 let g:Lf_WindowPosition = 'popup'
-let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+let g:Lf_StlSeparator = { 'left': "\ueb0", 'right': "\ue0b2", 'font': "Monaco Nerd Font Mono" }
 let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 let g:Lf_ShortcutF = '<C-P>'
-let g:Lf_ShowDevIcons = 0
-" clang-format
+let g:Lf_ShowDevIcons = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-clang-format
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:clang_format#auto_format = 1 " format when saving
 let g:clang_format#auto_filetypes= ["c", "cpp","proto" ]
+let g:clang_format#detect_style_file = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " cpp-enhanced-highlight
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:cpp_stl_container_highlight = 1
 let g:cpp_stl_algorithm_highlight = 1
 let g:cpp_stl_iterator_highlight = 1
@@ -51,11 +69,15 @@ let g:cpp_class_decl_highlight = 1
 let g:cpp_posix_standard = 1
 let g:cpp_experimental_simple_template_highlight = 1
 let c_no_curly_error=1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colortheme
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 colorscheme dracula 
-set background=dark       " for the dark version
-"let g:one_allow_italics = 1 " one_dark: I love italic for comments
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " rainbow  
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:rainbow_active=1
 " remove brackets in nerdtree
 "let g:rainbow_active=0
@@ -66,23 +88,33 @@ let g:rainbow_conf = {
 \       'cmake': 0,
 \   }
 \}
-" vim translator
-let g:translator_default_engines = 'google' " this plugin can not be use
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:airline_theme='deus'
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#formatter = 'default'
 let g:airline_extensions = []
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " indentLine
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:indent_guides_guide_size = 1  
 let g:indent_guides_start_level = 2  
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-markdown/preview
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:vim_markdown_math = 1 "enable latex
 let g:mkdp_browser = '/opt/google/chrome/google-chrome'
 let g:mkdp_open_ip = 'localhost:8080'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-gutentags
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 let g:gutentags_ctags_tagfile = '.tags'
 let s:vim_tags = expand('~/.cache/tags')
@@ -179,48 +211,60 @@ autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
 
 "------------------------------------------------------ basic settings------------------------------------------
-" basic settings
-set nu  "show line
-set relativenumber
+"show line number
+set nu  
+set rnu
 syntax enable
 set t_Co=256
 set termguicolors
-set cursorline  " highlight current line
+" highlight current line
+set cursorline  
 filetype plugin indent on
 filetype on
-" vertical show commandline
+
 set wildmenu
-"set wildoptions=pum  
+set wildmode=longest:full,full
 
 set encoding=utf-8
 "set fileencoding=utf-8
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
-"
-" google-style indentfor C++
+
+" google-style indent for C++
 set smarttab
 set shiftwidth=2
 set tabstop=2
 set expandtab
+
 "set mouse=a
 set smartindent
 
-"set rnu "show line numbers relative to the cursor position
+" Ignore case when searching
+set ignorecase
+set smartcase
+
+set background=dark
+
 set ruler
 set sm!
 " effect backspace
 set backspace=indent,eol,start 
+
 set hlsearch
+" Matches are gradually displayed.
 set incsearch
+
 set showmatch
 set showcmd
+" autoindent
 set ai
+" smartindent
 set si
 set cindent
 set clipboard+=unnamed
 set tags=./.tags;,.tags
 " quick escape to normal mode
-set ttimeoutlen=50  
+set ttimeoutlen=50
 set autowrite
 "italic for comments
 highlight Comment cterm=italic gui=italic
@@ -236,3 +280,56 @@ if has("autocmd")
   au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
 endif
 
+" syntax highlight for assembly
+autocmd BufNewFile,BufRead *.s set filetype=nasm
+autocmd BufNewFile,BufRead *.S set filetype=nasm
+autocmd BufNewFile,BufRead *.asm set filetype=nasm
+
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+function! VisualSelection(direction, extra_filter) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", "\\/.*'$^~[]")
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'gv'
+        call CmdLine("Ack '" . l:pattern . "' " )
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Let '\tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
