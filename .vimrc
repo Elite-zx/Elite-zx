@@ -97,6 +97,7 @@ Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
 Plug 'vim-autoformat/vim-autoformat'
 Plug 'liuchengxu/vim-which-key'
+Plug 'easymotion/vim-easymotion'
 "Plug 'preservim/vim-markdown'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
@@ -120,7 +121,41 @@ map <leader>nf :NERDTreeFind<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " autoformat
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:autoformat_autoindent = 0
+let g:autoformat_retab = 0
+let g:autoformat_remove_trailing_spaces = 1
+let verbose=1
 au BufWrite * :Autoformat
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" NERDCommenter
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Create default mappings
+let g:NERDCreateDefaultMappings = 1
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 0
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-which-key
@@ -135,11 +170,12 @@ nmap <F8> :TagbarToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LeaderF
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" popup mode
 let g:Lf_PreviewInPopup = 1
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_StlSeparator = { 'left': "\ueb0", 'right': "\ue0b2", 'font': "Monaco Nerd Font Mono" }
 let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
-let g:Lf_ShortcutF = '<C-P>'
+let g:Lf_ShortcutF ='<leader>f'
 let g:Lf_ShowDevIcons = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -311,15 +347,26 @@ let g:startify_custom_header = [
 "map <Up> <Nop>
 "map <Down> <Nop>
 
-" Mapping keyboard shortcuts for commands
-nnoremap <C-i> :PlugInstall<CR>
+" disable F1
+nmap <F1> <nop>
+imap <F1> <nop>
+cmap <F1> <nop>
+
+" press jj fast  to trigger Esc in insert mode
+imap jj <Esc>
+
+" nnoremap <C-i> :PlugInstall<CR>
 nnoremap <C-l> :IndentLinesToggle<CR>
 "nmap <C-s> <Plug>MarkdownPreviewToggle
 
-"nnoremap k kzz
-"nnoremap j jzz
+" quickly insert an empty new line without leaving normal mode
+nnoremap <Leader>o o<Esc>
+nnoremap <Leader>O O<Esc>
+
+nnoremap k kzz
+nnoremap j jzz
 "  Set 8 lines to the cursor - when moving vertically using j/k
-set so=8
+"set so=8
 
 " Automatically select after adjusting the indentation
 vnoremap < <gv
