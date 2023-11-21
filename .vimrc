@@ -177,6 +177,8 @@ let g:Lf_StlSeparator = { 'left': "\ueb0", 'right': "\ue0b2", 'font': "Monaco Ne
 let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 let g:Lf_ShortcutF ='<leader>f'
 let g:Lf_ShowDevIcons = 1
+nmap <Leader>r :Leaderf rg<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " cpp-enhanced-highlight
@@ -352,8 +354,9 @@ nmap <F1> <nop>
 imap <F1> <nop>
 cmap <F1> <nop>
 
-" press jj fast  to trigger Esc in insert mode
-imap jj <Esc>
+" press ctrl-c fast to trigger Esc in insert mode
+imap <C-c> <Esc>
+
 
 " nnoremap <C-i> :PlugInstall<CR>
 nnoremap <C-l> :IndentLinesToggle<CR>
