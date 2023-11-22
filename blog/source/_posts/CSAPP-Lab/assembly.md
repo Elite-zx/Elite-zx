@@ -1,5 +1,5 @@
 ---
-title: "汇编语言【王爽】实验流程"
+title: "[汇编语言(王爽)] 实验流程"
 date: 2023-02-04
 categories: 
 - CSAPP

@@ -1,15 +1,15 @@
 ---
-title: "CMU CS15213: CSAPP"
+title: "[CMU CS15213] CSAPP"
 date: 2023/03/06
 categories:
 - CSAPP
-tags: 
+tags:
 - Foundation
 ---
 # lab1 dataLab
 ## 前提
 确保有一个linux系统，并已经执行过以下两条命令:
-安装gcc：`sudo apt-get install build-essential`  
+安装gcc：`sudo apt-get install build-essential`
 安装[gcc的交叉编译环境](https://askubuntu.com/questions/855945/what-exactly-does-gcc-multilib-mean-on-ubuntu#:~:text=gcc%2Dmultilib%20is%20useful%20for,you%20get%20the%20idea).)：`sudo apt-get install gcc-multilib`，因为实验的程序需要以32位方式编译
 在[CMU的CSAPP网站](http://csapp.cs.cmu.edu/3e/labs.html)上下载实验所需资料，包括** README, Writeup，Self-Study Handout，** 这三部分均包含对实验的要求说明（Handout的说明在其包含的bits.c文件中由注释给出），Self-Study Handout包括用于测试的文件
 ## 1.bitXor(x,y)
@@ -19,7 +19,7 @@ x&y中为1的位(bit)对应 1-1； 取反后为：0-0、0-1、1-0；
 两个做交集即为结果。（位向量可以表示集合，&，|，~可视为 交，并，补操作）
 ```cpp
 /*
-bitXor - x^y using only ~ and & 
+bitXor - x^y using only ~ and &
 Example: bitXor(4, 5) = 1
 Legal ops: ~ &
 Max ops: 14
@@ -32,8 +32,8 @@ int bitXor(int x, int y) {
 ## 2.tmin
 最简单的一题：`000...001` --> `1000...000`
 ```cpp
-/* 
-tmin - return minimum two's complement integer 
+/*
+tmin - return minimum two's complement integer
 Legal ops: ! ~ & ^ | + << >>
 Max ops: 4
 Rating: 1
@@ -51,13 +51,13 @@ int tmin(void) {
 ```cpp
 /*
 isTmax - returns 1 if x is the maximum, two's complement number,
-and 0 otherwise 
+and 0 otherwise
 egal ops: ! ~ & ^ | +
 Max ops: 10
 Rating: 1
 */
 int isTmax(int x) {
-  return !(~((x+!(x+1)) ^ (x+1))) ; 
+  return !(~((x+!(x+1)) ^ (x+1))) ;
    // !((~x) + (~x));  it should be right, the operator "!" seem to not work
 }
 ```
@@ -65,7 +65,7 @@ int isTmax(int x) {
 这道题没想出来，在x上shift的方式想了一个多小时，总是不能满足所有测试用例，说明在x上shift是行不通的。
 用好异或即可解决：构造`101...1010`，再用该数提取x中的奇数位，最后再与`101...1010`比较
 ```cpp
-/* 
+/*
 allOddBits - return 1 if all odd-numbered bits in word set to 1
 where bits are numbered from 0 (least significant) to 31 (most significant)
 Examples allOddBits(0xFFFFFFFD) = 0, allOddBits(0xAAAAAAAA) = 1
@@ -75,14 +75,14 @@ Rating: 2
 */
 int allOddBits(int x) {
   int allOdd = (0xAA << 24) + (0xAA << 16) + (0xAA << 8) + 0xAA; // 10101010..101
-  return ! ((allOdd & x) ^ allOdd);   
+  return ! ((allOdd & x) ^ allOdd);
 }
 ```
 ## 5.isAsciiDigit(x)
 有点难，还是自己做出来了，主要使用了掩码提取x中的指定位，再运用前几题的经验---用异或执行比较操作。
 x的最后四位，3bit 与 1,2bit不能同时为1，因而有`!((x&mask2)^mask2) + (!((x&mask3)^mask3)))`，难点在于怎么处理好式中三部分的逻辑关系
 ```cpp
-/* 
+/*
  * isAsciiDigit - return 1 if 0x30 <= x <= 0x39 (ASCII codes for characters '0' to '9')
  *   Example: isAsciiDigit(0x35) = 1.
  *            isAsciiDigit(0x3a) = 0.
@@ -102,10 +102,10 @@ int isAsciiDigit(int x) {
 比较简单，主要实现这样一个逻辑：x!=0，返回y；x=0，返回z；
 涉及的操作是把x转化为0与1两个值，再把`000...0001`转化为`111...1111`
 ```cpp
-/* 
- * conditional - same as x ? y : z 
+/*
+ * conditional - same as x ? y : z
  *   Example: conditional(2,4,5) = 4
- *   Legal ops: ! ~ & ^ | + << >> 
+ *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 16
  *   Rating: 3
  */
@@ -120,34 +120,34 @@ int conditional(int x, int y, int z) {
 那么这题就涉及加法溢出,需要对` x+uw  y `结果的三种情况的判断(negative overflow ， positive overflow)，变得复杂起来。
 更好的想法是**分析式子**`**y-x**`**并加入一个conditional操作**：如果两者异号(正-负，负-正)，那么结果的正负的确定的；如果两者同号(同号相减不可能溢出)，则通过与Tmin相与提取符号位。
 ```cpp
-/* 
- * isLessOrEqual - if x <= y  then return 1, else return 0 
+/*
+ * isLessOrEqual - if x <= y  then return 1, else return 0
  *   Example: isLessOrEqual(4,5) = 1.
  *   Legal ops: ! ~ & ^ | + << >>
  *   Max ops: 24
  *   Rating: 3
  */
-int isLessOrEqual(int x, int y) 
+int isLessOrEqual(int x, int y)
 {
   int Tmin = 1<<31; // 100...0000
   int signY = Tmin & y;
   int signX = Tmin & x;
-  int judge = (signY ^ signX)<<31; 
+  int judge = (signY ^ signX)<<31;
   x = (~x)+1;
-  return (judge&signX) | (~(judge>>31) & !((y+x)&Tmin)) ; // 
+  return (judge&signX) | (~(judge>>31) & !((y+x)&Tmin)) ; //
 }
 ```
 ## 8.logicalNeg(x)
 这题要求自己实现一个 ！逻辑，即输入0返回1，输入N（N!=0）返回0。一开始的出发点是：x=0，返回1；x 位向量存在为1的位，返回0。但是仅靠逻辑运算符无法实现该想法。
 于是换了一个想法：先得到x的符号位signX。signx为1，说明x为负数，可以直接得到结果；sign为0，说明x即可能为0也可能为正数，那么就要利用补码加法操作会发生的**positive overflow**现象，即 Tmax + x ，对任意x>0均会使结果变为负数，符号位由0 -->1。（positive overflow 不同于 negative overflow，并没有产生整数溢出，因此不会导致[undefined behavior](http://port70.net/~nsz/c/c11/n1570.html#3.4.3p3)）
 ```cpp
-/* 
- * logicalNeg - implement the ! operator, using all of 
+/*
+ * logicalNeg - implement the ! operator, using all of
  *              the legal operators except !
  *   Examples: logicalNeg(3) = 0, logi'calNeg(0) = 1
  *   Legal ops: ~ & ^ | + << >>
  *   Max ops: 12
- *   Rating: 4 
+ *   Rating: 4
  */
 int logicalNeg(int x) {
   int Tmin = 1<<31;
@@ -177,19 +177,19 @@ int howManyBits(int x) {
   int b16,b8,b4,b2,b1,b0;
   int signX = x>>31;
   x = ((~signX) & x) | (signX&(~x));// if x is negative, let sign bit:1-> 0
-  
+
   b16 = (!!(x>>16))<<4; // ensure high 16 bits exist 1 or not
   x=x>>b16;
-  b8 = (!!(x>>8))<<3; // ensure high 8 bits 
+  b8 = (!!(x>>8))<<3; // ensure high 8 bits
   x=x>>b8;
-  b4 = (!!(x>>4))<<2; // ensure high 4 bits 
-  x=x>>b4;  
-  b2 = (!!(x>>2))<<1; // ensure high 2 bits 
-  x=x>>b2; 
-  b1 = !!(x>>1); // ensure 31 bits or not 
+  b4 = (!!(x>>4))<<2; // ensure high 4 bits
+  x=x>>b4;
+  b2 = (!!(x>>2))<<1; // ensure high 2 bits
+  x=x>>b2;
+  b1 = !!(x>>1); // ensure 31 bits or not
   x = x>>b1;
   b0 = x;
-  
+
   return b0+b1+b2+b4+b8+b16+1; // 1: sign bit
 }
 ```
@@ -199,7 +199,7 @@ int howManyBits(int x) {
 注意点：对normalized，f* 2的2是乘在了2E；而对denormalized，是乘在了frac表示的M上，这也是为什么`frac = frac <<1`，这也使得denormalized能转化到normalized (smoothly)
 ```cpp
 //float
-/* 
+/*
  * floatScale2 - Return bit-level equivalent of expression 2*f for
  *   floating point argument f.
  *   Both the argument and result are passed as unsigned int's, but
@@ -221,7 +221,7 @@ unsigned floatScale2(unsigned uf) {
   if(exp == 0xFF  ) // NaN
      result = uf;
   else if(exp == 0x0) // denormalized
-  {  
+  {
      if(frac == 0x0)
      {
         if(sign)  // -0.0
@@ -229,14 +229,14 @@ unsigned floatScale2(unsigned uf) {
         else     // +0.0
            result = 0 ;
      }
-     
+
      else
      {
         frac = frac << 1;
         result = sign+ (exp<<23) + frac;
      }
   }
-  
+
   else if(exp != 0x0 && exp != 0xFF) // normalized
   {
      exp += 1;
@@ -250,7 +250,7 @@ unsigned floatScale2(unsigned uf) {
 对题目的解释：返回浮点数f的int型表示，如输入`12345.0 (0x4640E400)`, 正确输出为`12345 (0x3039)`
 注意点：当f的值超过32bit的int类型位向量所能表示的最大值时(2^31-1)，即E>31时，属于out of range
 ```cpp
-/* 
+/*
  * floatFloat2Int - Return bit-level equivalent of expression (int) f
  *   for floating point argument f.
  *   Argument is passed as unsigned int, but
@@ -262,7 +262,7 @@ unsigned floatScale2(unsigned uf) {
  *   Max ops: 30
  *   Rating: 4
  */
- 
+
 int floatFloat2Int(unsigned uf) {
   int musk_exp,musk_frac,exp,frac,sign,E,Bias,result;
   musk_exp = 0xFF << 23;
@@ -274,10 +274,10 @@ int floatFloat2Int(unsigned uf) {
   result = 5;
   if(exp == 0xFF  ) // NaN or infinity
      result = 0x80000000u;
-     
+
   else if(exp == 0x0)
      result = 0;
-     
+
   else if(exp != 0x0 && exp != 0xFF) // normalized
   {
      E = exp -Bias;  // bit_num of fraction
@@ -288,19 +288,19 @@ int floatFloat2Int(unsigned uf) {
      else
      {
         frac = frac>>(23-E);
-        result = (0x1 << E) + frac ; 
+        result = (0x1 << E) + frac ;
         if(sign == 0x1<<31)
            result = - result;
      }
   }
-  
+
   return result;
 }
 ```
 ## 12.floatPower2(x)
 注意点：当2^x超过位向量所能表示的最大值（largest normalized）时，即exp 大于 254（1111 1110），属于too large
 ```cpp
-/* 
+/*
  * floatPower2 - Return bit-level equivalent of the expression 2.0^x
  *   (2.0 raised to the power x) for any 32-bit integer x.
  *
@@ -308,9 +308,9 @@ int floatFloat2Int(unsigned uf) {
  *   representation as the single-precision floating-point number 2.0^x.
  *   If the result is too small to be represented as a denorm, return
  *   0. If too large, return +INF.
- * 
- *   Legal ops: Any integer/unsigned operations incl. ||, &&. Also if, while 
- *   Max ops: 30 
+ *
+ *   Legal ops: Any integer/unsigned operations incl. ||, &&. Also if, while
+ *   Max ops: 30
  *   Rating: 4
  */
 unsigned floatPower2(int x) {
@@ -328,12 +328,12 @@ unsigned floatPower2(int x) {
      if(exp > 254)  // 1111 1110
         {
            exp = 0xFF;
-           result = exp <<23+frac;         
+           result = exp <<23+frac;
         }
      else
-        result = (exp<<23) + frac; 
-  }    
-  
+        result = (exp<<23) + frac;
+  }
+
   return result ;
 }
 ```
@@ -450,7 +450,7 @@ while(1)
     val = *(input_copy); // 0x0(%r13)
     val = val-1;
     if(val>5)  explode()  // 元素值不得大于6
-        
+
     ++a1; // add $0x1, %r12d
     if(a1 == 6) break; // jmp 95
     int a2 = a1; // mov %r12d, %ebx
@@ -473,9 +473,9 @@ do{
     *(input_copy_2) = a3 - *(input_copy_2);
     ++input_copy_2;
 }while(input_copy_2 != sentry)
-/* 更新输入字符串所有值为：7-初始值(已证实), 
+/* 更新输入字符串所有值为：7-初始值(已证实),
 结合之前的信息，说明此时的输入字符串均不小于1，且只可能存在一个等于1 */
- 
+
 int a4 = 0; // 123 %esi  -- index
 int a5; // %edx
 int a6; // %eax  -- index
@@ -485,20 +485,20 @@ if(input[a4] <= 1) // 166  %ecx
     a5 = 0x6032d0; // 143
     offset_148:
     *(input+0x20+2*a4) = a5; // 148 [8]:20, [10]:28, [12]:30, [14]:38, [16]:40,[18]:48
-                             //   0x6032d0, 0x6032e0  0x6032f0 0x603200 0x603310 0x603320   
-    a4 += 4; // add $0x4, %rsi 
+                             //   0x6032d0, 0x6032e0  0x6032f0 0x603200 0x603310 0x603320
+    a4 += 4; // add $0x4, %rsi
     if(a4 ==  24 )
-        goto offset_183; // 161 
-    else 
+        goto offset_183; // 161
+    else
         goto offset_166;
 }
 else  // 均要走这个else， 可能有一个不走这个else -->肯定有一个不走
 {
-    a6 = 1;  // 171  
+    a6 = 1;  // 171
     &a5 = 0x6032d0; // 176  这个地址+0x8能多次跳转
     do{ // 130
         a5 = *(&a5 + 0x8) ; // mov 0x8(%rdx),%rdx  链表?
-        ++a6; 
+        ++a6;
     }while(a6 != *(input+a4) ) // 139  (must have 1-6), 2-5, 3-4 , 4-3, 5-2, 6-1, (7-0)
     goto offset_148;         // recorrect: 3-4, 4-3,5-2,6-1,1-6,2-5
 } // 181
@@ -511,28 +511,28 @@ a3 = a7; // a3:%rcx
 while(1){ // 201
     a5 = *input_copy_3; //a5:%rdx [10][12]...[18][20] 6
     *(a3+0x8) = a5; // 0x8(%rcx)
-    input_copy_3 += 2; // 0x8 
-    if(input_copy_3 == input_copy_4) break; // 215 
+    input_copy_3 += 2; // 0x8
+    if(input_copy_3 == input_copy_4) break; // 215
     a3 = a5; // mov %rdx, %rcx
 }    //   make  *(a[i-2] + 0x8) = a[i] (i = i+2: 10 12 .. 18)
 // 结束时 %rdx = * (input + 18)
 
 *(*(input+18) + 2 ) = 0; // 222   set last node's pointer to nullptr
 int a8 = 5; // %ebp
-int a9 // %rax 
+int a9 // %rax
 do
 {
  &a9 = *(a7+2); // %rax   initial a7 = input[8]
   a9 = *a9; // mov (%rax), %eax
-if(*(*(input+8)) < a9) // cmp %eax, (%rbx) 
+if(*(*(input+8)) < a9) // cmp %eax, (%rbx)
     explode();   // 验证是否降序
-a7 = *(*(input+8)+2); // mov 0x8(%rbx), %rbx 更新%rbx  
+a7 = *(*(input+8)+2); // mov 0x8(%rbx), %rbx 更新%rbx
 --a8;
 }while(a8>0)
 
 }
 // over
-    
+
 /*inital:
 0x14c(0): 332;
 0x0a8(1): 168;
@@ -581,29 +581,29 @@ secret_phase()
 {
     int input_2;// (%rdi)
     &input_2 = read_line(); //  %rdi
-    
+
     int a1 = 0xa; // %edx
     int a2 = 0x0; // %esi
     long int input_num_1 = strtol(input_2); // %rax
     long int input_num_2 = input_num_1 // %rbx
-    input_num_1 -= 1; 
+    input_num_1 -= 1;
     if(input_num_1 > 0x3e8 /*1000*/) explode();
     // 输入的数字字符串 值小于 1001
-    a2 = input_num_2;// mov %ebx, %esi  
+    a2 = input_num_2;// mov %ebx, %esi
     &input_2 = 0x6030f0;
     int ret = fun7(&input_2,a2,input_num_1); // ret_value: %rax
-    
+
     if(ret == 0x2)
         defused();
     else
-        explode(); 
+        explode();
 }
 
 int fun7(&input_2, a2, input_num_1)
 {
     if(&input_2 == 0x0) return -1; // avoid endless recursion
     int a3 = *(&input_2);  // 9 %edx   initial a3 = 24
-    if(a3 <= a2) goto offset_28; // 13  a2是输入值 
+    if(a3 <= a2) goto offset_28; // 13  a2是输入值
 
     // a3 > a2
     input_2 = *(&input_2 + 0x8); // +2  turn left
@@ -614,7 +614,7 @@ int fun7(&input_2, a2, input_num_1)
 
     offset_28:
     input_num_1 = 0;
-    if(a3 == a2) return input_num_1;	
+    if(a3 == a2) return input_num_1;
 
     // a3 < a2
     input_2 = *(&input_2 + 0x10); // +4   turn right
@@ -728,12 +728,12 @@ writeup的附录B提示我们将gcc与objdump结合使用产生指令序列的�
 partA 中提到的`.trace`文件是一个可执行文件的内存访问记录，由Linux程序`valgrind`产生。partA要求我们构造一个模拟cache行为的`cache simulator`，将`.trace`文件作为输入(实际上就是一条条内存访问记录，模拟内存访问过程)，并伴有三个输入参数：
 
 1. 组索引位数 -s  （$S = 2^s$为高速缓存组的组数）
-2. 高速缓存行数 -E 
+2. 高速缓存行数 -E
 3. 块偏移位数 -b （$B = 2^b$为高速缓存块的大小）
 
 根据内存访问记录，输出每条访问的结果（hit/miss/evict)，输出操作通过调用`printSummary(hit_count, miss_count, eviction_count)`函数完成，输出结果应当与作者提供给我们的`reference cache simulator`相同，运行`make`+`./test-csim`获取评分
 ### 2. getopt函数的用法
-由于三个参数通过命令行输入，因此我们需要通过C语言库中的`getopt`函数，结合switch语句从命令行中获取参数值 
+由于三个参数通过命令行输入，因此我们需要通过C语言库中的`getopt`函数，结合switch语句从命令行中获取参数值
 C语言中的`main`函数是程序的入口函数，它包含两个参数：`argc`和`argv`。它们的作用如下：
 
 1. argc参数
@@ -841,7 +841,7 @@ typedef struct cache
 	int S;
 	int E;
 	int B;
-	cache_line** Cache; 
+	cache_line** Cache;
 }cache;
 ```
 
@@ -850,7 +850,7 @@ typedef struct cache
 主要在于正确解析命令行参数，会用`getopt`就行
 ```cpp
 int main(int argc, char* argv[])
-{ 	
+{
     int	hit_count = 0, miss_count = 0, eviction_count = 0;
     int s, E, b,opt;
     char* trace_name = (char*)malloc(sizeof(char)*30);
@@ -986,7 +986,7 @@ void access_cache(cache* my_cache, int s, int b, char* trace_name, int* hit_coun
      unsigned address;
      int size;
      while(fscanf(pFile," %c %x,%d",&identifier,&address,&size)>0)
-     {     
+     {
 		int mask =(unsigned)(-1)>>(64-s);
 		int ad_set = (address >> b) & mask;
 		int ad_tag = address >> (s+b);
@@ -1017,7 +1017,7 @@ void access_cache(cache* my_cache, int s, int b, char* trace_name, int* hit_coun
 		update_LRU(my_cache, ad_set, ad_tag, line_index);
 	}
 
-	else 
+	else
 	{
 		free_line = is_not_full(my_cache, ad_set);
 		if(free_line != -1)
@@ -1033,8 +1033,8 @@ void access_cache(cache* my_cache, int s, int b, char* trace_name, int* hit_coun
 			evict_line = find_LRU(my_cache,ad_set);
 			update_LRU(my_cache, ad_set, ad_tag, evict_line);
 		}
-		
-	}	
+
+	}
 }
 ```
 ### 5. 结果

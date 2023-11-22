@@ -53,7 +53,9 @@ set ai
 set si
 set cindent
 set clipboard+=unnamed
+" ctags
 set tags=./.tags;,.tags
+
 " quick escape to normal mode
 set ttimeoutlen=50
 
@@ -98,6 +100,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-autoformat/vim-autoformat'
 Plug 'liuchengxu/vim-which-key'
 Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-repeat'
 "Plug 'preservim/vim-markdown'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
@@ -161,6 +164,10 @@ let g:NERDToggleCheckAllLines = 1
 " vim-which-key
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <silent> <leader> :WhichKey ','<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-repeat
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tagbar
