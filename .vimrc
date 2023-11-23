@@ -73,10 +73,8 @@ set t_vb=
 " ==========================================plugin config==================================================
 call plug#begin()
 Plug 'preservim/nerdtree'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'jiangmiao/auto-pairs'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'rakr/vim-one'
+Plug 'bfrg/vim-cpp-modern'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'Yggdroot/indentLine'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
@@ -101,6 +99,9 @@ Plug 'vim-autoformat/vim-autoformat'
 Plug 'liuchengxu/vim-which-key'
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-repeat'
+Plug 'morhetz/gruvbox'
+Plug 'ajmwagar/vim-deus'
+
 "Plug 'preservim/vim-markdown'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 
@@ -181,7 +182,7 @@ nmap <F8> :TagbarToggle<CR>
 let g:Lf_PreviewInPopup = 1
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_StlSeparator = { 'left': "\ueb0", 'right': "\ue0b2", 'font': "Monaco Nerd Font Mono" }
-let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+let g:Lf_PreviewResult = {'File':1,'Rg':1,'Function': 0, 'BufTag': 0 }
 let g:Lf_ShortcutF ='<leader>f'
 let g:Lf_ShowDevIcons = 1
 nmap <Leader>r :Leaderf rg<CR>
@@ -190,18 +191,31 @@ nmap <Leader>r :Leaderf rg<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " cpp-enhanced-highlight
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:cpp_stl_container_highlight = 1
-let g:cpp_stl_algorithm_highlight = 1
-let g:cpp_stl_iterator_highlight = 1
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_posix_standard = 1
-let g:cpp_experimental_simple_template_highlight = 1
-let c_no_curly_error=1
+" let g:cpp_stl_container_highlight = 1
+" let g:cpp_stl_algorithm_highlight = 1
+" let g:cpp_stl_iterator_highlight = 1
+" let g:cpp_class_scope_highlight = 1
+" let g:cpp_member_variable_highlight = 1
+" let g:cpp_class_decl_highlight = 1
+" let g:cpp_posix_standard = 1
+" let g:cpp_experimental_simple_template_highlight = 1
+" let c_no_curly_error=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" colortheme
+" vim-cpp-modern
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable highlighting of C++11 attributes
+let g:cpp_attributes_highlight = 1
+
+" Highlight struct/class member variables (affects both C and C++ files)
+let g:cpp_member_highlight = 1
+
+" Put all standard C and C++ keywords under Vim's highlight group 'Statement'
+" (affects both C and C++ files)
+let g:cpp_simple_highlight = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" colorscheme
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 colorscheme dracula
 
@@ -223,10 +237,6 @@ let g:cpp_posix_standard = 1
 let g:cpp_experimental_simple_template_highlight = 1
 let c_no_curly_error=1
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" colortheme
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme dracula
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " rainbow
@@ -337,15 +347,13 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " vim-startify
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:startify_custom_header = [
-      \ '                                ',
-      \ '            __                  ',
-      \ '    __  __ /\_\    ___ ___      ',
-      \ '   /\ \/\ \\/\ \ /'' __` __`\   ',
-      \ '   \ \ \_/ |\ \ \/\ \/\ \/\ \   ',
-      \ '    \ \___/  \ \_\ \_\ \_\ \_\  ',
-      \ '     \/__/    \/_/\/_/\/_/\/_/  ',
+\'  __  __ _   _  _   _  __     __ ___  __  __   ',
+\'  \ \/ /| | | || \ | | \ \   / /|_ _||  \/  |  ',
+\'   \  / | | | ||  \| |  \ \ / /  | | | |\/| |  ',
+\'   /  \ | |_| || |\  |   \ V /   | | | |  | |  ',
+\'  /_/\_\ \___/ |_| \_|    \_/   |___||_|  |_|  ',
       \ ]
-<
+
 
 
 "==============================================keys customiztion && function ====================================
