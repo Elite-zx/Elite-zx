@@ -1,5 +1,5 @@
 - 👋 Hi, I'm @Elite-zx, a CS student of internet university.
-- ❤️  C++ er, vim er, linux er
+- ❤️  C++ er, vim er
 - 📭 elite2022zx@gmail.com
 - 🔗 elite-zx.github.io
 - btw I use Ubuntu

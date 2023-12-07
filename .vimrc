@@ -5,10 +5,11 @@ set rnu
 syntax enable
 set t_Co=256
 set termguicolors
-" highlight current line
+" line
 set cursorline
 filetype plugin indent on
 filetype on
+
 
 set wildmenu
 set wildmode=longest:full,full
@@ -27,6 +28,9 @@ set expandtab
 " A buffer becomes hidden when it is abandoned
 set hid
 
+" Move the cursor to a position where there are no characters
+set virtualedit=block
+
 "set mouse=a
 set smartindent
 
@@ -35,6 +39,8 @@ set ignorecase
 set smartcase
 
 set background=dark
+
+set t_RV=
 
 set ruler
 set sm!
@@ -53,8 +59,10 @@ set ai
 set si
 set cindent
 set clipboard+=unnamed
+
 " ctags
 set tags=./.tags;,.tags
+
 
 " quick escape to normal mode
 set ttimeoutlen=50
@@ -101,6 +109,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-repeat'
 Plug 'morhetz/gruvbox'
 Plug 'ajmwagar/vim-deus'
+Plug 'machakann/vim-highlightedyank'
 
 "Plug 'preservim/vim-markdown'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
@@ -180,12 +189,21 @@ nmap <F8> :TagbarToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " popup mode
 let g:Lf_PreviewInPopup = 1
+let g:Lf_PreviewHorizontalPosition = 'right'
 let g:Lf_WindowPosition = 'popup'
 let g:Lf_StlSeparator = { 'left': "\ueb0", 'right': "\ue0b2", 'font': "Monaco Nerd Font Mono" }
 let g:Lf_PreviewResult = {'File':1,'Rg':1,'Function': 0, 'BufTag': 0 }
 let g:Lf_ShortcutF ='<leader>f'
 let g:Lf_ShowDevIcons = 1
-nmap <Leader>r :Leaderf rg<CR>
+let g:Lf_GtagsAutoGenerate = 1
+let g:Lf_Gtagslabel = 'native-pygments'
+" let g:Lf_ReverseOrder = 1
+
+nmap <Leader>r  :Leaderf rg<CR>
+nmap <Leader>gf :Leaderf gtags<CR>
+nmap <Leader>gj :Leaderf gtags --by-context --auto-jump<CR>
+
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -215,9 +233,19 @@ let g:cpp_member_highlight = 1
 let g:cpp_simple_highlight = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" colorscheme
+" colorscheme dracula
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 colorscheme dracula
+
+let g:dracula_italic = 1
+let g:dracula_bold = 1
+
+
+"italic for comments
+highlight DraculaComment cterm=italic gui=italic
+
+"
+" autocmd vimenter * colorscheme dracula
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " tagbar
@@ -255,12 +283,9 @@ let g:rainbow_conf = {
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline_theme='deus'
+let g:airline_theme='dracula'
+" let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#formatter = 'default'
-let g:airline_extensions = []
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " indentLine
@@ -280,14 +305,23 @@ let g:indent_guides_start_level = 2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 let g:gutentags_ctags_tagfile = '.tags'
-let s:vim_tags = expand('~/.cache/tags')
-let g:gutentags_cache_dir = s:vim_tags
+
+let g:gutentags_modules = []
+if executable('ctags')
+	let g:gutentags_modules += ['ctags']
+endif
+if executable('gtags-cscope') && executable('gtags')
+	let g:gutentags_modules += ['gtags_cscope']
+endif
+
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-if !isdirectory(s:vim_tags)
-  silent! call mkdir(s:vim_tags, 'p')
-endif
+
+let g:gutentags_auto_add_gtags_cscope = 0
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-cool
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -374,7 +408,7 @@ imap <C-c> <Esc>
 
 
 " nnoremap <C-i> :PlugInstall<CR>
-nnoremap <C-l> :IndentLinesToggle<CR>
+" nnoremap <C-l> :IndentLinesToggle<CR>
 "nmap <C-s> <Plug>MarkdownPreviewToggle
 
 " quickly insert an empty new line without leaving normal mode
@@ -394,8 +428,6 @@ vnoremap > >gv
 autocmd InsertLeave,WinEnter * set cursorline
 autocmd InsertEnter,WinLeave * set nocursorline
 
-"italic for comments
-highlight Comment cterm=italic gui=italic
 " change cursor shape in between insert mode and normal/visual mode
 if has("autocmd")
   au VimEnter,InsertLeave * silent execute '!echo -ne "\e[2 q"' | redraw!
@@ -452,4 +484,12 @@ let g:lasttab = 1
 nmap <leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
+map ]b :bnext<CR>
+map [b :bprevious<CR>
+map ]t :tabnext<CR>
+map [t :tabprevious<CR>
 
+nmap <Leader>p :terminal<CR>
+
+" gtags
+let $GTAGSLABEL = 'native-pygments'

@@ -82,8 +82,9 @@ sudo apt dist-upgrade
 sudo apt install clangd -y
 sudo apt install clang-format -y
 
-# ctags
+# ctags and gtags
 sudo apt-get install exuberant-ctags -y
+sudo apt install global -y 
 
 #-------------------------------------------shortcut tool----------------------------------------
 # install flameshot
