@@ -7,8 +7,9 @@
 
 Connect with me:
 ---
-![Email](elite2022zx@gmail.com)
-![Blog](https://elite-zx.github.io)
+![mail](img/mail.svg) [Email](elite2022zx@gmail.com)
+![blog](img/globe-light.svg) [Blog](https://elite-zx.github.io)
+![X](img/twitter-light.svg) [X](https://twitter.com/Bezod_jeff)
 
 Languages and Tools
 ---
