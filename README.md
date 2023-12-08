@@ -5,9 +5,10 @@
 - 👨‍💻 I believe in Practicing rather than papers makes the master.
 - 🌱 Maintain self-criticism and corrective feedback
 
+Connect with me:
 ---
-- 📭 elite2022zx@gmail.com
-- 🔗 elite-zx.github.io
+![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white):elite2022zx@gmail.com
+![Github Pages](https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white):https://elite-zx.github.io/
 
 Languages and Tools
 ---
