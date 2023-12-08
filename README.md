@@ -7,8 +7,10 @@
 
 Connect with me:
 ---
-![](img/mail.svg) ![Email](elite2022zx@gmail.com)
-![](img/globe-light.svg) ![Blog](https://elite-zx.github.io)
+![](img/mail.svg)
+![](img/globe-light.svg)
+![Email](elite2022zx@gmail.com)
+![Blog](https://elite-zx.github.io)
 
 Languages and Tools
 ---
