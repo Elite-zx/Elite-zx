@@ -7,8 +7,10 @@
 
 Connect with me:
 ---
-![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white):elite2022zx@gmail.com
-![Github Pages](https://img.shields.io/badge/github%20pages-121013?style=for-the-badge&logo=github&logoColor=white):https://elite-zx.github.io/
+![](../img/mail.svg)![Email](elite2022zx@gmail.com)
+![](../img/globe-light.svg)![blog](https://elite-zx.github.io)
+
+
 
 Languages and Tools
 ---
