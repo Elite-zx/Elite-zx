@@ -7,7 +7,7 @@
 
 Connect with me:
 ---
-![mail](img/mail.svg) [Email](elite2022zx@gmail.com)
+![mail](img/mail.svg) [Email](mailto:elite2022zx@gmail.com)
 ![blog](img/globe-dark.svg) [Blog](https://elite-zx.github.io)
 ![X](img/twitter-dark.svg) [X](https://twitter.com/Bezod_jeff)
 
