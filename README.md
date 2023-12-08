@@ -7,8 +7,8 @@
 
 Connect with me:
 ---
-✉️ ![Email](elite2022zx@gmail.com)
-🌐![Blog](https://elite-zx.github.io)
+![Email](elite2022zx@gmail.com)
+![Blog](https://elite-zx.github.io)
 
 Languages and Tools
 ---
@@ -20,4 +20,5 @@ Languages and Tools
 
 
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Elite-zx&layout=compact&hide=javascript,html,css&langs_count=6)
+
 
