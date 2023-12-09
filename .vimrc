@@ -110,6 +110,7 @@ Plug 'tpope/vim-repeat'
 Plug 'morhetz/gruvbox'
 Plug 'ajmwagar/vim-deus'
 Plug 'machakann/vim-highlightedyank'
+Plug 'voldikss/vim-floaterm'
 
 "Plug 'preservim/vim-markdown'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
@@ -205,6 +206,10 @@ nmap <Leader>gj :Leaderf gtags --by-context --auto-jump<CR>
 
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-highlightedyank
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:highlightedyank_highlight_in_visual = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " cpp-enhanced-highlight
@@ -338,9 +343,13 @@ endfunction
 
 inoremap <silent><expr> <Tab>
       \ coc#pum#visible() ? coc#pum#next(1) :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+let g:coc_snippet_next = '<Tab>'
+
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
@@ -370,12 +379,15 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 " Highlight the symbol and its references when holding the cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-floaterm
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:floaterm_keymap_toggle = '<F12>'
+let g:floaterm_keymap_kill = '<F9>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-startify
@@ -489,7 +501,6 @@ map [b :bprevious<CR>
 map ]t :tabnext<CR>
 map [t :tabprevious<CR>
 
-nmap <Leader>p :terminal<CR>
 
 " gtags
 let $GTAGSLABEL = 'native-pygments'
