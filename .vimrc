@@ -202,7 +202,7 @@ let g:Lf_Gtagslabel = 'native-pygments'
 
 nmap <Leader>r  :Leaderf rg<CR>
 nmap <Leader>gf :Leaderf gtags<CR>
-nmap <Leader>gj :Leaderf gtags --by-context --auto-jump<CR>
+nmap <C-o> :Leaderf gtags --by-context --auto-jump<CR>
 
 
 
