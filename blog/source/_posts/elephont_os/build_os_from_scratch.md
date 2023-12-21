@@ -27,8 +27,6 @@ tags:
 make -j $(nproc) && make install
 ```
 
-```
-
 安装汇编器NASM
 ```zsh
 sudo apt update && sudo apt -y install nasm

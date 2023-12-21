@@ -3,8 +3,8 @@ title: "[计算机网络自顶向下] Socket Programming Assignment + Miscellane
 date: 2023/05/24
 categories:
 - Computer Network
-tags: 
-- Foundation
+tags:
+- lab
 ---
 
 Programming Tasks Of Computer-Networking-A-TopDown-Approach
@@ -26,7 +26,7 @@ serverName = '127.0.0.1' # ip or hostname , if is hostname,automatically carry o
 serverPort = 12000 # designate destination port number
 clientSocket = socket(AF_INET,SOCK_DGRAM);# create client socket(ipv4,udp), clientPort is automatically allocated by OS
 message = input('Input lowercase sentence:')
-# message content and destination address(server_ip,server_ port),the clientAddress automatically add to the message by OS     
+# message content and destination address(server_ip,server_ port),the clientAddress automatically add to the message by OS
 clientSocket.sendto(message.encode(),(serverName,serverPort))
 modifiedMessage, serverAddress = clientSocket.recvfrom(2048); # receive from server, 2048 is cache length
 print(modifiedMessage.decode())
@@ -56,7 +56,7 @@ serverName = '127.0.0.1' # local host
 serverPort = 12000   # welcoming socket
 clientSocket = socket(AF_INET, SOCK_STREAM)#clientPort is automatically allocated by OS
 # knock at the welcoming door(welcomingsocket),this will initiate tcp three-way handshakes
-clientSocket.connect((serverName,serverPort)) 
+clientSocket.connect((serverName,serverPort))
 sentence=input('Input lowercase sentence:')
 clientSocket.send(sentence.encode()) # send message without server addree,since tcp connection is built
 modifiedSentence = clientSocket.recv(1024)
@@ -113,7 +113,7 @@ while True:
         #Send one HTTP header line into socket
         #Fill in start
         header = 'HTTP/1.1 200 OK\r\nConnection: close\r\nDate: Tue, 23 May 2023 11:14:01 GMT\r\nContent-Type: text/html\r\nContent-Length: %d\r\n\r\n' % (len(outputdata)) # Comply with the HTTP response message format
-        connectionSocket.send(header.encode()) 
+        connectionSocket.send(header.encode())
         #Fill in end
         #Send the content of the requested file to the client
         for i in range(0, len(outputdata)):
@@ -124,7 +124,7 @@ while True:
         #Send response message for file not found
         #Fill in start
         header = 'HTTP/1.1 404 Not Found'
-        connectionSocket.send(header.encode()) 
+        connectionSocket.send(header.encode())
         #Fill in end
         #Close client socket
         #Fill in start
@@ -149,15 +149,15 @@ HelloWorld.html放在Web-Server.py同目录下，内容如下：
 ## 3.1. UDPPingerClient.py
 ```python
 from socket import*
-import time 
+import time
 
 serverName = '127.0.0.1'
 serverPort = 12000
 clientSocket = socket(AF_INET,SOCK_DGRAM);
-clientSocket.settimeout(1)  # timeout is 1 second 
+clientSocket.settimeout(1)  # timeout is 1 second
 
 for i in range(0,10):
-    sendTime = time.time() 
+    sendTime = time.time()
     message =('Ping %d %s' % (i+1,sendTime)).encode()
     try:
         clientSocket.sendto(message,(serverName,serverPort))
@@ -245,7 +245,7 @@ if recv[:3] != '220':
 context = ssl.create_default_context()
 clientSocket = context.wrap_socket(clientSocket, server_hostname='smtp.gmail.com')
 
-# Send AUTH LOGIN command 
+# Send AUTH LOGIN command
 authLoginCommand='AUTH LOGIN\r\n'
 clientSocket.send(authLoginCommand.encode())
 recv = clientSocket.recv(1024).decode()
@@ -258,7 +258,7 @@ recv = clientSocket.recv(1024).decode()
 print(recv)
 if (recv[:3] != '334'):
 	print('334 reply not received from server')
-# Send password 
+# Send password
 clientSocket.send((password+'\r\n').encode())
 recv = clientSocket.recv(1024).decode()
 print(recv)
@@ -419,7 +419,7 @@ while 1:
                 tcpCliSock.sendall(buffer)
                 print("buffer is ready!")
                 # Fill in end.
-                
+
                 # Create a new file in the cache for the requested file.
                 tmpFile = open("./" + filename,"wb")
                 # Fill in start.
@@ -439,9 +439,9 @@ while 1:
     tcpCliSock.close()
 # Fill in start.
 tcpSerSock.close()
-# Fill in end.   
+# Fill in end.
 ```
-## 5.3.result 
+## 5.3.result
 首次访问proxy server
 http://localhost:8080/gaia.cs.umass.edu/wireshark-labs/INTRO-wireshark-file1.html
 代理服务器上没有目标文件，因此它向源服务器发出请求，在得到文件后转发给client并缓存目标文件在代理服务器本地

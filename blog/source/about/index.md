@@ -1,6 +1,6 @@
 👋 Hi, I'm Zhang Xun
 ---
-- 🧑 A CS student of internet university.
+- 🧑 A CS undergraduate from china.
 - 🥳 Prefer highly customizable and extensible tools like vim and obsidian
 - 👨‍💻 I believe in Practicing rather than papers makes the master.
 - 🌱 Maintain self-criticism and corrective feedback

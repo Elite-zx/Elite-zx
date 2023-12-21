@@ -4,7 +4,7 @@ date: 2023/05/18
 categories:
 - Computer Network
 tags: 
-- Foundation
+- lab
 ---
 
 # lab1 Getting Start
