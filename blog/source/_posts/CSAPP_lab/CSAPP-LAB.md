@@ -1,5 +1,5 @@
 ---
-title: "[CMU CS15213] CSAPP"
+title: "CMU CS15213: CSAPP lab1~4"
 date: 2023/03/06
 categories:
 - CSAPP
@@ -340,7 +340,7 @@ unsigned floatPower2(int x) {
 ## consequence
 `make`
 `./driver.pl`
-### ![](attachment/a4c293cc441f32d00b3dbc0cdac50ab4.png)
+### ![](CSAPP_LAB/a4c293cc441f32d00b3dbc0cdac50ab4.png)
 
 ---
 
@@ -349,65 +349,65 @@ unsigned floatPower2(int x) {
 
 1. 反汇编`main`函数：`read_line`函数之后寄存器`%rax`和`%rdi`存储了我们输入的字符串的首地址(后续的phase都是如此)
 
-![](attachment/d0b5436e3bd694ef9dadbf62a885e8f4.png)
+![](CSAPP_LAB/d0b5436e3bd694ef9dadbf62a885e8f4.png)
 ![验证%rdi指向输入字符串(1)](https://cdn.nlark.com/yuque/0/2023/png/29536731/1677163430669-16842232-e1ab-4ac7-a90d-8f9a18e1c5d2.png#averageHue=%232d2d2d&clientId=u40dabece-2d53-4&from=paste&height=128&id=u1267f1f6&originHeight=128&originWidth=1060&originalType=binary&ratio=1&rotation=0&showTitle=true&size=59576&status=done&style=none&taskId=ufdd9544b-0308-49f4-86fd-49a8013d976&title=%E9%AA%8C%E8%AF%81%25rdi%E6%8C%87%E5%90%91%E8%BE%93%E5%85%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%281%29&width=1060 "验证%rdi指向输入字符串(1)")
 ![验证%rdi指向输入字符串(2)](https://cdn.nlark.com/yuque/0/2023/png/29536731/1677163457263-f780263b-09ed-4875-bafc-0f00d7e8e894.png#averageHue=%23323232&clientId=u40dabece-2d53-4&from=paste&height=77&id=ubbe401e0&originHeight=77&originWidth=723&originalType=binary&ratio=1&rotation=0&showTitle=true&size=31472&status=done&style=none&taskId=u152fe82b-0961-427e-bd1e-8a6755f1504&title=%E9%AA%8C%E8%AF%81%25rdi%E6%8C%87%E5%90%91%E8%BE%93%E5%85%A5%E5%AD%97%E7%AC%A6%E4%B8%B2%282%29&width=723 "验证%rdi指向输入字符串(2)")
 
 2. 反汇编`strings_not_equal`函数：该函数在输入字符串与目的字符串相同时，将寄存器`%rax`（通常用作函数返回值）赋值为0 (1 vice versa)
 
-![](attachment/82696a312b38b2caffbed1decdebe663.png)
-![](attachment/68c822853ca0f63de658940ba09b7003.png)
+![](CSAPP_LAB/82696a312b38b2caffbed1decdebe663.png)
+![](CSAPP_LAB/68c822853ca0f63de658940ba09b7003.png)
 
 3. 反汇编`phase_1`函数：`strings_not_equal`函数返回值为0时，`test %eax, %eax`能使`je 0x400ef7<phase_1+23>`执行，phase_1 defused (explode vice versa)
 
-![](attachment/19429a3d7d01b10593c4e4448702d955.png)
+![](CSAPP_LAB/19429a3d7d01b10593c4e4448702d955.png)
 
 4. 至此，只需找出目的字符串的位置即可，而目的字符串的地址明显在调用`strings_not_equal`函数之前赋值的`%esi：0x402400`寄存器中
 
-![](attachment/848f00e31ae9e6e18106b6038356b61c.png)
-![](attachment/dd5ff3c83ce1679eab6d51fba602f527.png)
+![](CSAPP_LAB/848f00e31ae9e6e18106b6038356b61c.png)
+![](CSAPP_LAB/dd5ff3c83ce1679eab6d51fba602f527.png)
 ## phase_2
 
 1. 反汇编`read_six_numbers`函数：可以推断出其实现了`sscanf(input, "%d %d %d %d %d %d",&a1,&a2,&a3,&a4,&a5,&a6)`的功能，其中`&a1~&a6`分别在1)`%rcx:0x4(%rsi)`2)`%r8:0x8(%rsi)`3)`%r9:0xc(%rsi)`4)`%rsp:0x10(%rsi)`5)`0x8(%rsp):0x14(%rsi), 0x18(%rsi) ` 前3个指针存储在寄存器中传递给`sscanf`函数，后三个指针存储在为`read_six_numbers`函数分配的栈空间中,可以推断出`%rsi`为一个含有六个元素的数组的首地址
 
-![](attachment/49e195de46edde2a13a3d612e3f4436f.png)
-![](attachment/848f00e31ae9e6e18106b6038356b61c.png)
+![](CSAPP_LAB/49e195de46edde2a13a3d612e3f4436f.png)
+![](CSAPP_LAB/848f00e31ae9e6e18106b6038356b61c.png)
 
 2. 反汇编`phase_2`函数：判断a1与0x1相等，不相等则explode；接着判断a2与2*a1是否相等，不相等则explode，接着都是一样的模式：判断当前数据是否与前一个数据的2倍相等，不相等则explode，直到判断完六个数据
 
-![](attachment/a2c1f6510d1747ac9f31f9caaa5f0cf6.png)
+![](CSAPP_LAB/a2c1f6510d1747ac9f31f9caaa5f0cf6.png)
 
 3. 自此，我们可以判断出这六个数字分别是$2^0,2^1,2^2,2^3,2^4,2^5$
 
-![](attachment/cc9b4103bc02a8d67f35043fedfface7.png)
+![](CSAPP_LAB/cc9b4103bc02a8d67f35043fedfface7.png)
 ## phase_3
 
 1. 反汇编`phase_3`：从`(%esi)`的字符串可以看出该函数先读取了两个输入的值，接着判断第一个值是否大于7(`cmpl 0x7,0x8(rsp)`)，并根据这个值执行间接跳转操作(`jmp *0x402470(,rax,8)`)
 
-![](attachment/8f19c8e6410929f9f8eadf10f37a2ccd.png)
+![](CSAPP_LAB/8f19c8e6410929f9f8eadf10f37a2ccd.png)
 
 2. 查看0x402470附近存储的地址值(用于实现switch语句的跳转表)，只要地址值的地址可以由0x402470加上一个8的倍数得到，就是符合条件的，最后验证出来有7个地址值，进而有7个符合条件的`0x8(%rsp`：1 2 3 4 5 6 7
 
-![](attachment/ba11b3ecaddba2f5b95962aa2edd2a17.png)
+![](CSAPP_LAB/ba11b3ecaddba2f5b95962aa2edd2a17.png)
 
 3. 根据后续的赋值-跳转指令，可以得到对应的7个`0xc(%rsp)`：311 707 256 389 206 682 327，所以最终答案有7个: (1, 311)，(2, 707)，(3, 256)，(4, 389)，(5, 206)，(6, 682)，(7, 327)
 
-![](attachment/9fe1343ecdbd946c3404a678738f74d7.png)![](attachment/49e195de46edde2a13a3d612e3f4436f.png)
-![](attachment/c8c8680d6369eb064a9fb0434b0b3d31.png)![](attachment/8f19c8e6410929f9f8eadf10f37a2ccd.png)![](attachment/c8c8680d6369eb064a9fb0434b0b3d31.png)![](attachment/cc9b4103bc02a8d67f35043fedfface7.png)![](attachment/cc9b4103bc02a8d67f35043fedfface7.png)![](attachment/49e195de46edde2a13a3d612e3f4436f.png)![](attachment/33260348d45935dfc16fd4da8e94e9a0.png)
+![](CSAPP_LAB/9fe1343ecdbd946c3404a678738f74d7.png)![](CSAPP_LAB/49e195de46edde2a13a3d612e3f4436f.png)
+![](CSAPP_LAB/c8c8680d6369eb064a9fb0434b0b3d31.png)![](CSAPP_LAB/8f19c8e6410929f9f8eadf10f37a2ccd.png)![](CSAPP_LAB/c8c8680d6369eb064a9fb0434b0b3d31.png)![](CSAPP_LAB/cc9b4103bc02a8d67f35043fedfface7.png)![](CSAPP_LAB/cc9b4103bc02a8d67f35043fedfface7.png)![](CSAPP_LAB/49e195de46edde2a13a3d612e3f4436f.png)![](CSAPP_LAB/33260348d45935dfc16fd4da8e94e9a0.png)
 ## phase_4
 
 1. 反汇编`phase_4`函数：开头部分具有与`phase_3`函数相似的部分，均需输入两个值（留意这里，其实只需保证填充了两个值就可以），且规定了第1个值不大于14(`cmpl $0xe, 0x8(%rsp)`)，之后函数调用`func4`函数，传入三个参数`%edx`, `%esi`, `0x8(%rsp)`。虽然目前不清楚func4做了什么，但可以确定返回值必须为0(`test %eax, %eax`)。后续的`cmpl $0x0, 0xc(%rsp)`足以确定第2个值为0
 
-![](attachment/e36a2a99955dab7372f26e5f6c54cea0.png)
+![](CSAPP_LAB/e36a2a99955dab7372f26e5f6c54cea0.png)
 
 2. 反汇编`func4`函数：出现了`func4`调用自身的情况，所以`func4`是一个递归函数。第1部分将`%rax`赋值为`%edx`-`%esi`,再加上它的最高位(`%rax >> 31`)，接着执行算数右移。这里加上最高位的原因在于，当后续`%rax`在递归中值减少为-1时，最高位是符号位1，两者相加能保证`%rax`始终大于等于0，结合后续汇编内容，可以推断出第一个值`0x8(%rsp)`应当是一个无符号数，范围为0~14; 第2部分，可以看出这是一个二分查找的过程，如果`%ecx > %edi`，那么就使`%ecx`变为`%esi`到`%edx`的中间值(`lea -0x1(%rcx), %edx`)；第3部分，结合eax返回必须为0的条件，可以推断出所有递归的函数调用均不应使第3部分的跳转指令执行，否则会使返回`phase_4`的`%rax`值为1
 
-![](attachment/e6d3379fc4d365ff408c77b2babf4d21.png)
+![](CSAPP_LAB/e6d3379fc4d365ff408c77b2babf4d21.png)
 
 3. 自此，可以推断出第1个值随递归调用次数增多而减少，进而有多个不同的值，并在减少为0时停止变化。分析后可得出有以下4个值7 3 1 0，结合第2个值为0的条件，得出符合条件的字符串有(7, 0), (3, 0), (1, 0), (0, 0)
 
-![](attachment/7e450d69c1d03c9011f11f0b067acb76.png)![](attachment/7e450d69c1d03c9011f11f0b067acb76.png)
-![](attachment/7e450d69c1d03c9011f11f0b067acb76.png)![](attachment/7e450d69c1d03c9011f11f0b067acb76.png)
+![](CSAPP_LAB/7e450d69c1d03c9011f11f0b067acb76.png)![](CSAPP_LAB/7e450d69c1d03c9011f11f0b067acb76.png)
+![](CSAPP_LAB/7e450d69c1d03c9011f11f0b067acb76.png)![](CSAPP_LAB/7e450d69c1d03c9011f11f0b067acb76.png)
 ## phase_5
 
 1. 反汇编`phase_5`函数：要求输入字符串包含六个字符（注意！包含空格），根据后续汇编逻辑，可反编译得到以下程序 (%fs:0x28在这里的作用：作为金丝雀值，提供堆栈保护检查)
@@ -424,17 +424,17 @@ else
    explode_bomb();
 }while(i>6)
 ```
-![](attachment/257036f48e30c46dedcbdf50015da107.png)
+![](CSAPP_LAB/257036f48e30c46dedcbdf50015da107.png)
 
 2. 分别查看`source: 0x4024b0`和`target: 0x40245e`处的字符串，我们要做的就是使输入字符串形成的索引值能够从`0x4024b0`处的字符集中提取出 "flyers"
 
-![](attachment/60e7bd6e50d50fb77b707637148c0e04.png)
-![](attachment/d363fbe15afd12811daeb0a66ede9589.png)
+![](CSAPP_LAB/60e7bd6e50d50fb77b707637148c0e04.png)
+![](CSAPP_LAB/d363fbe15afd12811daeb0a66ede9589.png)
 
 3. 我们的输入字符串每个字符在内存中占一个byte，`movzbl (%rbx, %rax, 1), %ecx`说明了一次循环提取一个字符，并只取该字符的低四位(`and $0xf, %edx`)作为索引值
 4. 首先先确定索引值，然后推出字符串：对比source和target两个字符串，可以确定索引值为：7 15 14 5 6 7，这6个索引值在ASCII表中对应的字符是无法输入的（eg：7 BEL），因此我们要利用只取低四位作索引值这一特点，索引值对应的四位二进制为：1001，1111，1110，0101，0110，0111 ， 因此所有(prefer a~z)低四位为以上二进制组合的均可以defuse，如ionefg，yONuvw
 
-![](attachment/e01a62cd2c34aaab94c959af6be846d3.png)![](attachment/e6d3379fc4d365ff408c77b2babf4d21.png)
+![](CSAPP_LAB/e01a62cd2c34aaab94c959af6be846d3.png)![](CSAPP_LAB/e6d3379fc4d365ff408c77b2babf4d21.png)
 ## phase_6
 
 1. thinking process
@@ -548,30 +548,30 @@ a7 = *(*(input+8)+2); // mov 0x8(%rbx), %rbx 更新%rbx
 
 2. 我完成phase_6的时间比前五个加起来还多，从第一次反汇编phase_6到彻底搞清楚phase_6各个步骤做了什么并推出答案花的时间可能接近有6，7个小时了，确定了这是一个链表问题，将链表排序并验证。这个phase里很关键的信息就是`0x6032d0`这个地址值，通过查看该地址后24个字的内容，可以看见这里储存了一个含有6个结点的链表，然后根据这个信息分析并反编译汇编代码， 即可发现我们的最终目的是使`0x6032d0`这里的链表降序排列。输入自己推算出的答案，看见终端显示出拆弹成功真的超开心
 
-![](attachment/acd690b3b50691d1f6e3f12a5cbd3c85.png)
-![](attachment/40edff8d78bfb0c20b5b843703546e03.png)
+![](CSAPP_LAB/acd690b3b50691d1f6e3f12a5cbd3c85.png)
+![](CSAPP_LAB/40edff8d78bfb0c20b5b843703546e03.png)
 ## secret_phase
-![](attachment/532ab5bef0f2b1fbcb4e3a75616980cc.png)
+![](CSAPP_LAB/532ab5bef0f2b1fbcb4e3a75616980cc.png)
 
 1. 发现彩蛋
 
 以上语句说明邪恶博士还给我们留了一手， 拆弹还没彻底完成，这个easter egg在bomb.c中是发现不了的，只能在bomb文件中寻找。CMU给出的writeup给了我们明确的提示，可以用`objdump -t bomb`查看函数的符号表，包括全局变量的名称和所有函数的名称，进而我们可以在符号表中发现secret_phase。
-![](attachment/022618c6c2df7c53f1385e093b46d9bf.png)
+![](CSAPP_LAB/022618c6c2df7c53f1385e093b46d9bf.png)
 
 2. 怎么触发
 
 1)谁调用了secret_phase：`secret_phase`既然作为一个函数，那么就需要被调用，邪恶博士不会做了炸弹而不接引线，因此我们要在`main`函数中寻找可能调用`secret_base`的语句，既然phase_1到phase_6我们都分析过源码，所以调用语句肯定只能存在`phase_defused`函数中，反汇编`phase_defused`函数，果然发现了调用`secret_phase`的指令
 ![](https://cdn.nlark.com/yuque/0/2023/png/29536731/1677404954528-c0e39bd3-077e-49cd-a460-d820f2047ce8.png)
 2）在phase_defused中如何触发：从`main`函数可以看出，bomb文件在每次未触发炸弹而执行完一个phase的时候都会调用一次`phase_defused`。分析phase_defused，该函数当输入字符串表示分隔的数字值时，如果数字个数小于6个，直接返回，对应phase1~phase5；如果数字等于6个，继续执行，对应phase6
-![](attachment/02e77af27b1c4e865e36db8907ca7b63.png)
+![](CSAPP_LAB/02e77af27b1c4e865e36db8907ca7b63.png)
 接着从地址`0x603870`处读取两个数字，一个字符串
-![](attachment/840754c4bede736bec5534802d03b4c2.png)
+![](CSAPP_LAB/840754c4bede736bec5534802d03b4c2.png)
 经过验证，地址`0x603870`为phase_4阶段输入字符串的开始地址
-![](attachment/a660c4c01c2033e2876e3574083862bd.png)![](attachment/42cd427d395bd0887302dfbe5f3a095f.png)
+![](CSAPP_LAB/a660c4c01c2033e2876e3574083862bd.png)![](CSAPP_LAB/42cd427d395bd0887302dfbe5f3a095f.png)
 根据后续逻辑，只要在phase_4阶段时输入`"7 0 DrEvil"`即可触发`secret_bomb`
-![](attachment/172349e0413d8582ce691ac2f1abecf3.png)
-![](attachment/6275de0a9feabb7b06a305b4e04ba190.png)
-![](attachment/a7dc7f4a3fb6f6a4c1c13204acce6c2e.png)
+![](CSAPP_LAB/172349e0413d8582ce691ac2f1abecf3.png)
+![](CSAPP_LAB/6275de0a9feabb7b06a305b4e04ba190.png)
+![](CSAPP_LAB/a7dc7f4a3fb6f6a4c1c13204acce6c2e.png)
 
 3. 终章：拆解secret_phase
 
@@ -625,10 +625,10 @@ int fun7(&input_2, a2, input_num_1)
 
 ```
 2）有了phase_6的经验，我在查看了特殊地址`0x6030f0`的内容后很快就反应出这又是链表相关的问题，扩大查看的地址范围后，我发现地址`0x6030f0`为起点进行索引，后面120个字大小的地址空间，表示一个高度为3，结点大小为8 words的二叉搜索树；再结合`secret_phase`的逻辑，在子函数`fun7`返回值为2时defuse，经过分析，`fun7`这个递归函数，在最后三次递归时为turn left(`&input_2 + 0x8`）->turn right(`&input_2 + 0x10`) -> return 0时才能保证最终返回值为2，画出二叉树后，可以很清楚的看到，满足这样三步走的有且仅有子结点22 （子结点22再左走一步到叶子结点20，只是重复了一遍return 0，也满足要求，因此20也是最终答案，）
-![](attachment/a05e697174deb4b8d970e125f4076696.png)
-![](attachment/d198271aa8a29539467dd82ee47ef6ad.png)
+![](CSAPP_LAB/a05e697174deb4b8d970e125f4076696.png)
+![](CSAPP_LAB/d198271aa8a29539467dd82ee47ef6ad.png)
 3) 至此，整个bomblab就结束了，花费了我十多个小时完成了这个lab还是很值得的，伴随这一个又一个defuse，成就感是满满的，哈哈哈
-![](attachment/022618c6c2df7c53f1385e093b46d9bf.png)
+![](./CSAPP-LAB/bomb-lab.png)
 
 ---
 
@@ -648,12 +648,12 @@ writeup的附录A介绍了多种`hex/2raw`接受输入字符串并传递给ctarg
 
 1. 反汇编`ctarget`：可用`objdump -d ctarget`获取ctarget的汇编版本，为了方便，我们直接将输出定向到一个asm文件中
 
-![](attachment/5e39b3abb1bc5e7f4330d928004e1682.png)
+![](CSAPP_LAB/5e39b3abb1bc5e7f4330d928004e1682.png)
 这样我们每次查看ctarget的汇编版本时，就不用重新反汇编一次了
 
 2. `vim dis_ctarget.asm`查看`getbuf`函数的汇编代码，可以看见它的栈帧长度为0x28（40）个字节，因此要覆盖在这之上的调用者`test`函数的ret地址，只需在缓冲区写入0x30（48）个字节即可；查看`touch1`函数，它的地址在`0x004017c0`处，因此要在exploit_string的最后8个字节上填入c0 17 40 00（little-endian）
 
-![](attachment/77ee6da89546a4114df2d33fbf821a72.png)
+![](CSAPP_LAB/77ee6da89546a4114df2d33fbf821a72.png)
 
 3. `vim phase_1.txt`输入
 
@@ -666,65 +666,65 @@ writeup的附录A介绍了多种`hex/2raw`接受输入字符串并传递给ctarg
   &c0 &17  &40  &00  &00  &00  &00
 \end{matrix}$
 最后留了一个字节以供gets放入' \n ' (不放也没事，执行touch1能直接退出程序)。最后一行result显示PASS就说明攻击生效了
-![](attachment/77ee6da89546a4114df2d33fbf821a72.png)
+![](CSAPP_LAB/77ee6da89546a4114df2d33fbf821a72.png)
 ## phase_2
 
 1. 编写汇编代码，转化为字节码：`vim asb.s`，输入以下汇编代码（push可直接压入地址，不必先放入寄存器）
 
-![](attachment/97bcb18bfbfeb7e9317be7ad13681c7d.png)
+![](CSAPP_LAB/97bcb18bfbfeb7e9317be7ad13681c7d.png)
 line1将`cookie`值赋给`%rdi`传参给`touch2`；ine2将2`touch2`的地址压入栈中，目的在于在`ret`指令执行后，从栈中弹出并赋值给`%rip`的返回地址是`touch2`的地址
-![](attachment/aeea8b6bce1c1c133dbdb9f1a3d99fc5.png)
+![](CSAPP_LAB/aeea8b6bce1c1c133dbdb9f1a3d99fc5.png)
 writeup的附录B提示我们将gcc与objdump结合使用产生指令序列的字节码
 `gcc -c asb.s`
 `objdump -d asb.o > asb.d`
 这样我们就得到了指令序列的字节码，可用于构造exploit_string
-![](attachment/545f6b671736fb44dfde1345b0c75cff.png)
+![](CSAPP_LAB/545f6b671736fb44dfde1345b0c75cff.png)
 
 2. 构造`phase_2.txt`，因为`asb.o`中的代码本身就已经逆序，所以直接输入即可；用于覆盖`test`栈帧中返回地址的值可由`%rsp`的值推算出（取决于你将字节码放在缓冲区的位置），这里为了方便， 我将字节码放在了缓冲区的开头，则用于覆盖的地址就是`%rsp`的值
 
-![](attachment/7ff73ffc1bf9e9611f1cd79ae7de1f2c.png)
-![](attachment/6a17fd900e3467ceb030942fd0334f13.png)
+![](CSAPP_LAB/7ff73ffc1bf9e9611f1cd79ae7de1f2c.png)
+![](CSAPP_LAB/6a17fd900e3467ceb030942fd0334f13.png)
 
 3. 攻击生效
 
-![](attachment/0cf71efb20d9854b0a1e6e1cfb8a3252.png)
+![](CSAPP_LAB/0cf71efb20d9854b0a1e6e1cfb8a3252.png)
 ## phase_3
 
 1. 与`phase_2`很像，但这次要传递的参数是字符串形式的`cookie`。因为`getbuf`的栈帧在函数结束后就被操作系统收回，且会被后续函数调用占用，因此我们将字符串`cookie`放在`test`函数的栈帧中，地址`0x5561dca8`；获取`touch3`函数的地址，编写攻击代码
 
-![](attachment/7210c3d6fbde68b1e7705b12b56e6d38.png)
-![](attachment/75eb7fac02ee199b822f199e5e69d09f.png)
+![](CSAPP_LAB/7210c3d6fbde68b1e7705b12b56e6d38.png)
+![](CSAPP_LAB/75eb7fac02ee199b822f199e5e69d09f.png)
 
 2. `ascii -ax`查看十六进制形式的ascii-table，得出`"59b997fa"`的ascii形式为`35 39 62 39 39 37 66 61`
 
-![](attachment/a05e697174deb4b8d970e125f4076696.png)
+![](CSAPP_LAB/a05e697174deb4b8d970e125f4076696.png)
 
 3. 覆盖返回地址和test栈帧，写入攻击代码的地址和字符串`cookie`
 
-![](attachment/a05e697174deb4b8d970e125f4076696.png)
+![](CSAPP_LAB/a05e697174deb4b8d970e125f4076696.png)
 
 4. 攻击生效
 
-![](attachment/a85afbd69b690948359583ead1d13729.png)
+![](CSAPP_LAB/a85afbd69b690948359583ead1d13729.png)
 ## phase_4
 确定攻击方案：`rtarget`由于具备栈随机化，以及栈内代码不可执行这两个属性，所以如果要在栈中插入攻击代码将面临两个问题：1）用于指向攻击代码的地址无法确定：因为我们要把攻击代码放入栈中，但栈的位置不确定，进而我们也无法创建指向攻击代码的指针  2）攻击代码无法执行，因为栈被标注为不可执行。writeup给了我们明确的提示，既然我们无法插入自己的攻击代码，那么就用`ctarget`自身的代码实现攻击，具体做法是通过地址跳转，截取`ctarget`的部分代码用作攻击代码；`gadget`指的是几条指令后跟着一条ret指令的程序片段，如果把函数栈设置为一连串`gadget`的地址，那么一旦执行其中一个`gadget`，`ret`指令就会不断的从栈中弹出新的`gadget`的地址赋给`%rip`,由此引发多个`gadget`的连续执行（注意函数调用栈地址的随机化跟程序代码的地址无关）
 
 1. `cookie`的值不可能从`rgadget`中找到，需要我们自己放到栈中，如同`phase_3`一样，放的位置不能是`getbuf`的缓冲区，因此我们将其放到`test`的栈帧中；接着要实现`mov $0x59b997fa,%rdi`，需执行`popq %rdi`，根据writeup的参照表，先在`start_farm`和`end_farm`之间寻找`5f`，结果没有，但是找到了`58 90`,地址为`0x004019ab`，这代表`popq %rax  nop`，因此我们需要用`%rax`作介质传递`cookie`给`%rdi`，而在farm中我们也确实找到了`movq %rax, %rdi：48 89 c7`，地址为`0x004019c5`，一共用到了两个`gadget`
 
-![](attachment/bbea916ea56dfc9a947de21da0b02567.png)
-![](attachment/a85afbd69b690948359583ead1d13729.png)
+![](CSAPP_LAB/bbea916ea56dfc9a947de21da0b02567.png)
+![](CSAPP_LAB/a85afbd69b690948359583ead1d13729.png)
 
 2. 按照下图逻辑编写phase_4，可实现攻击。自此attacklab就结束了，第一次感觉自己当了一名hacker，感觉很棒
 
-![](attachment/db45ead78f5aca153cab1156d508daef.png)![](attachment/50bc769c1e6db59af741f48d8624ac96.png)
-![](attachment/7c0c3e8a239918e820904293bd7101c2.png)
+![](CSAPP_LAB/db45ead78f5aca153cab1156d508daef.png)![](CSAPP_LAB/50bc769c1e6db59af741f48d8624ac96.png)
+![](CSAPP_LAB/7c0c3e8a239918e820904293bd7101c2.png)
 
 ---
 
 # lab4 cachelab
 ## PartA
 ### 1. 要做什么：
-[cachelab.pdf](https://www.yuque.com/attachments/yuque/0/2023/pdf/29536731/1679034059665-5dc8f6ef-14b4-44d3-b7d7-86d86787439b.pdf?_lake_card=%7B%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2023%2Fpdf%2F29536731%2F1679034059665-5dc8f6ef-14b4-44d3-b7d7-86d86787439b.pdf%22%2C%22name%22%3A%22cachelab.pdf%22%2C%22size%22%3A61287%2C%22ext%22%3A%22pdf%22%2C%22source%22%3A%22%22%2C%22status%22%3A%22done%22%2C%22download%22%3Atrue%2C%22taskId%22%3A%22ucfed49fb-dba4-4b45-976d-96d9752defc%22%2C%22taskType%22%3A%22upload%22%2C%22type%22%3A%22application%2Fpdf%22%2C%22__spacing%22%3A%22both%22%2C%22mode%22%3A%22title%22%2C%22id%22%3A%22iZZyy%22%2C%22margin%22%3A%7B%22top%22%3Atrue%2C%22bottom%22%3Atrue%7D%2C%22card%22%3A%22file%22%7D) [rec07.pdf](https://www.yuque.com/attachments/yuque/0/2023/pdf/29536731/1679034059905-2f06047b-ba4e-4abb-b642-f43a20552896.pdf?_lake_card=%7B%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2023%2Fpdf%2F29536731%2F1679034059905-2f06047b-ba4e-4abb-b642-f43a20552896.pdf%22%2C%22name%22%3A%22rec07.pdf%22%2C%22size%22%3A373293%2C%22ext%22%3A%22pdf%22%2C%22source%22%3A%22%22%2C%22status%22%3A%22done%22%2C%22download%22%3Atrue%2C%22taskId%22%3A%22u3bcb76bc-9a98-45cd-a08f-c450961f38a%22%2C%22taskType%22%3A%22upload%22%2C%22type%22%3A%22application%2Fpdf%22%2C%22__spacing%22%3A%22both%22%2C%22mode%22%3A%22title%22%2C%22id%22%3A%22M2QOk%22%2C%22margin%22%3A%7B%22top%22%3Atrue%2C%22bottom%22%3Atrue%7D%2C%22card%22%3A%22file%22%7D)
+[cachelab.pdf](https://www.yuque.com/CSAPP_LABs/yuque/0/2023/pdf/29536731/1679034059665-5dc8f6ef-14b4-44d3-b7d7-86d86787439b.pdf?_lake_card=%7B%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2FCSAPP_LABs%2Fyuque%2F0%2F2023%2Fpdf%2F29536731%2F1679034059665-5dc8f6ef-14b4-44d3-b7d7-86d86787439b.pdf%22%2C%22name%22%3A%22cachelab.pdf%22%2C%22size%22%3A61287%2C%22ext%22%3A%22pdf%22%2C%22source%22%3A%22%22%2C%22status%22%3A%22done%22%2C%22download%22%3Atrue%2C%22taskId%22%3A%22ucfed49fb-dba4-4b45-976d-96d9752defc%22%2C%22taskType%22%3A%22upload%22%2C%22type%22%3A%22application%2Fpdf%22%2C%22__spacing%22%3A%22both%22%2C%22mode%22%3A%22title%22%2C%22id%22%3A%22iZZyy%22%2C%22margin%22%3A%7B%22top%22%3Atrue%2C%22bottom%22%3Atrue%7D%2C%22card%22%3A%22file%22%7D) [rec07.pdf](https://www.yuque.com/CSAPP_LABs/yuque/0/2023/pdf/29536731/1679034059905-2f06047b-ba4e-4abb-b642-f43a20552896.pdf?_lake_card=%7B%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2FCSAPP_LABs%2Fyuque%2F0%2F2023%2Fpdf%2F29536731%2F1679034059905-2f06047b-ba4e-4abb-b642-f43a20552896.pdf%22%2C%22name%22%3A%22rec07.pdf%22%2C%22size%22%3A373293%2C%22ext%22%3A%22pdf%22%2C%22source%22%3A%22%22%2C%22status%22%3A%22done%22%2C%22download%22%3Atrue%2C%22taskId%22%3A%22u3bcb76bc-9a98-45cd-a08f-c450961f38a%22%2C%22taskType%22%3A%22upload%22%2C%22type%22%3A%22application%2Fpdf%22%2C%22__spacing%22%3A%22both%22%2C%22mode%22%3A%22title%22%2C%22id%22%3A%22M2QOk%22%2C%22margin%22%3A%7B%22top%22%3Atrue%2C%22bottom%22%3Atrue%7D%2C%22card%22%3A%22file%22%7D)
 partA 中提到的`.trace`文件是一个可执行文件的内存访问记录，由Linux程序`valgrind`产生。partA要求我们构造一个模拟cache行为的`cache simulator`，将`.trace`文件作为输入(实际上就是一条条内存访问记录，模拟内存访问过程)，并伴有三个输入参数：
 
 1. 组索引位数 -s  （$S = 2^s$为高速缓存组的组数）
@@ -823,7 +823,7 @@ int main() {
 在上面的例子中，`fscanf`函数的第一个参数是文件指针`fp`，第二个参数是格式化字符串`"%d %d %d"`，它表示要读取三个整数，每个整数之间用空格分隔。第三个、第四个和第五个参数分别是三个整数变量`a`、`b`、`c`的地址，`fscanf`函数将读取到的整数存储到这些变量中。最后，我们打印出这些变量的值，以检查是否正确读取了文件中的数据。
 ### 4. 编写程序
 这个实验不是真的让你去实现一个cache，而是让你编写一个能对访问记录进行应答的程序，这也是为什么writeup里强调所有的内存访问操作所需的块都不会超过行的容量
-![](attachment/ea760dfad84e022b238df1bf264916b5.png)
+![](CSAPP_LAB/ea760dfad84e022b238df1bf264916b5.png)
 
 1. cache结构声明
 
@@ -1038,5 +1038,5 @@ void access_cache(cache* my_cache, int s, int b, char* trace_name, int* hit_coun
 }
 ```
 ### 5. 结果
-![](attachment/f79658fdbb805322f1a6a578ef030add.png)
+![](CSAPP_LAB/f79658fdbb805322f1a6a578ef030add.png)
 

@@ -1,5 +1,5 @@
 ---
-title: "[计算机网络自顶向下] Socket Programming Assignment + Miscellaneous Labs "
+title: "计算机网络自顶向下: Socket Programming Assignment + Miscellaneous Labs "
 date: 2023/05/24
 categories:
 - Computer Network

@@ -1,12 +1,12 @@
 ---
-title: "[操作系统真象还原] 从0开始自制操作系统"
+title: "操作系统真象还原: 从0开始自制操作系统 全过程记录"
 date: 2023/12/15
 categories:
 - Operating System
 tags:
 - project
 ---
-获取源码：[XUN-OS](https://github.com/Elite-zx/XUN-OS)
+获取源码：[Tiny-OS](https://github.com/Elite-zx/Tiny-OS)
 
 # 1. 部署工作环境，安装并配置bochs
 我的系统为ubuntu22.04

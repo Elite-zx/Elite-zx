@@ -1,9 +1,9 @@
 ---
-title: "[计算机网络自顶向下] Wireshake Lab --- HTTP DNS UDP TCP" 
+title: "计算机网络自顶向下: Wireshake Lab --- HTTP DNS UDP TCP"
 date: 2023/05/18
 categories:
 - Computer Network
-tags: 
+tags:
 - lab
 ---
 
@@ -31,7 +31,7 @@ tags:
 捕获成功
 ![](Wireshark-Lab/9666fb87f7a0dd831d9a7bca04892e8a.png)
 1. Is your browser running HTTP version 1.0 or 1.1? What version of HTTP is the server running?
-**browser: HTTP1.1** 
+**browser: HTTP1.1**
 ![](Wireshark-Lab/74ff7bd33f836d0acfa4276f50feee09.png)
 **server:  HTTP1.1**
 ![](Wireshark-Lab/fa49d3d6e62886ab35141cf7e7f3e5af.png)
@@ -92,7 +92,7 @@ three
 `178.79.137.164`
 ![](Wireshark-Lab/9f268b8b2a79e7b190d5397e26452625.png)
 2. Can you tell whether your browser downloaded the two images serially, or whether they were downloaded from the two web sites in parallel? Explain.
-**serially, since the GET request send after another GET request getting it's response** 
+**serially, since the GET request send after another GET request getting it's response**
 ## 2.5. HTTP Authentication
 捕获成功
 ![](Wireshark-Lab/c0c297abba0275127407015d65925f9a.png)
@@ -187,7 +187,7 @@ Ubuntu上尽可能等效windows上的`ipconfig /displaydns` 的命令应该是`r
 1. To what IP address is the DNS query message sent? Is this the IP address of your default local DNS server?
 **yes,** `202.202.32.34`
 2. Examine the DNS query message. What “Type” of DNS query is it? Does the query message contain any “answers”?
-**NS， no answers** 
+**NS， no answers**
 ![](Wireshark-Lab/4988f28953c0e73d99679b2be88ced2a.png)
 3. Examine the DNS response message. What MIT nameservers does the response message provide? Does this response message also provide the IP addresses of the MIT namesers?
 **Exactly as listed by nslookup, even in the same order. no IP address in response**
@@ -220,7 +220,7 @@ Ubuntu上尽可能等效windows上的`ipconfig /displaydns` 的命令应该是`r
 捕获成功
 ![](Wireshark-Lab/f7c02b9e59c5a0d2791952aa5b9fc365.png)
 ## 5.1 A first look at the captured trace
-1. What is the IP address and TCP port number used by the client computer (source) that is transferring the file to gaia.cs.umass.edu? 
+1. What is the IP address and TCP port number used by the client computer (source) that is transferring the file to gaia.cs.umass.edu?
 **src port: 45280,  dst port: 80**
 ![](Wireshark-Lab/314920be8b5b765ccd96825ec1b747e5.png)
 2. What is the IP address of gaia.cs.umass.edu? On what port number is it sending and receiving TCP segments for this connection?
@@ -231,7 +231,7 @@ Ubuntu上尽可能等效windows上的`ipconfig /displaydns` 的命令应该是`r
 ## 5.2 TCP Basics
 1. What is the sequence number of the TCP SYN segment that is used to initiate the TCP connection between the client computer and gaia.cs.umass.edu? What is it in the segment that identifies the segment as a SYN segment?
 **sequence number: 0**
-**flag field of the segment identifies the segment is a SYN segment** 
+**flag field of the segment identifies the segment is a SYN segment**
 ![](Wireshark-Lab/94f0c60ba00e0a890b33bf10f57a3068.png)
 ![](Wireshark-Lab/503f32fc757e7476c881954fc7faaf9c.png)
 2. What is the sequence number of the SYNACK segment sent by gaia.cs.umass.edu to the client computer in reply to the SYN? What is the value of the Acknowledgement field in the SYNACK segment? How did gaia.cs.umass.edu determine that value? What is it in the segment that identifies the segment as a SYNACK segment?
@@ -248,7 +248,7 @@ Ubuntu上尽可能等效windows上的`ipconfig /displaydns` 的命令应该是`r
 4. Consider the TCP segment containing the HTTP POST as the first segment in the TCP connection. What are the sequence numbers of the first six segments in the TCP connection (including the segment containing the HTTP POST)? At what time was each segment sent? When was the ACK for each segment received? Given the difference between when each TCP segment was sent, and when its acknowledgement was received, what is the RTT value for each of the six segments? What is the EstimatedRTT value (see Section 3.5.3, page 242 in text) after the receipt of each ACK? Assume that the value of the EstimatedRTT is equal to the measured RTT for the first segment, and then is computed using the EstimatedRTT equation on page 242 for all subsequent segments.
 **这是是重新捕获了，因此发送端口从**`45240`**变成了**`48774`
 ![](Wireshark-Lab/8e43393a777274966c8cac1fa50519f7.png)
-$$EstimatedRTT = (1-\alpha)*EstimatedRTT +\alpha * RTT (\alpha = 0.125)$$  
+$$EstimatedRTT = (1-\alpha)*EstimatedRTT +\alpha * RTT (\alpha = 0.125)$$
 
 | seq num | sent time   | ack time          | RTT         | EstimatedRTT |
 | ------- | ----------- | ----------------- | ----------- | ------------ |
@@ -285,11 +285,11 @@ $$EstimatedRTT = (1-\alpha)*EstimatedRTT +\alpha * RTT (\alpha = 0.125)$$
 ![](Wireshark-Lab/43efb35d73de5a049bcde442827ed4d3.png)
 **接受窗口的大小远大于单个segment(1448 bytes), 并且随着发送的进行还在不断变大， 因此发送方没有因为接受窗口大小而抑制发送速率**
 9. Are there any retransmitted segments in the trace file? What did you check for (in the trace) in order to answer this question?
-**no retransimtted segments, the sequence of The sequence number of the segment sent by the sender is always incremented**, 
+**no retransimtted segments, the sequence of The sequence number of the segment sent by the sender is always incremented**,
 **这里是重新捕获后的截图，端口变为**`45802`
 ![](Wireshark-Lab/d8ef1ee754a2556fbce31f6bf8329a91.png)
 10. How much data does the receiver typically acknowledge in an ACK? Can you identify cases where the receiver is ACKing every other received segment u(每隔一个收到的段)(see Table 3.2 on page 250 in the text).
-**两个连续的反馈信息中的ACK字段之差就表示了一个ACK确定的数据量，可以看到这里是**`1448` 
+**两个连续的反馈信息中的ACK字段之差就表示了一个ACK确定的数据量，可以看到这里是**`1448`
 **下图中也存在这样的情况$9396 - 6500 = 2896$ , 这种就是间隔发送ACK的情况(case)**
 ![](Wireshark-Lab/107b718dc0d1f7cc9f60dffd947e6e1c.png)
 11. What is the throughput (bytes transferred per unit time) for the TCP connection? Explain how you calculated this value.
@@ -299,5 +299,5 @@ $$EstimatedRTT = (1-\alpha)*EstimatedRTT +\alpha * RTT (\alpha = 0.125)$$
 **因此总数据量为$1696891 - 1 = 1696890$ （头部信息加上文件数据），这很符合文件的大小
 
 ![](Wireshark-Lab/2aeda677c398c1c2a738e9662a8fd7a7.png)
-除去这期间的时间就可得到单位时间**$14.24178 -8.65656 = 5.58522$**的吞吐量**$1696890/5.58522 = 303,817.93376$ ， **即303kB/s (not KB)** 
+除去这期间的时间就可得到单位时间**$14.24178 -8.65656 = 5.58522$**的吞吐量**$1696890/5.58522 = 303,817.93376$ ， **即303kB/s (not KB)**
 

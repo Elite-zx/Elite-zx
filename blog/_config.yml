@@ -4,7 +4,7 @@
 
 # Site
 title: Xun's blog
-subtitle: Talk is cheap. Show me the code. 
+subtitle: Talk is cheap. Show me the code.
 description: At Ease
 keywords:
 author: Xun Morris
@@ -16,7 +16,7 @@ timezone: ''
 url: https://elite-zx.github.io/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
-sitemap: 
+sitemap:
   path: sitemap.xml
 pretty_urls:
   trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
@@ -51,9 +51,9 @@ highlight:
   auto_detect: false
   tab_replace: ''
   wrap: true
-  hljs: 
+  hljs:
 prismjs:
-  enable: true 
+  enable: true
   preprocess: true
   line_number: true
   tab_replace: ''
@@ -124,6 +124,9 @@ markdown_it_plus:
     plugins:
           - plugin:
               name: markdown-it-checkbox
+              enable: true
+          - plugin:
+              name: markdown-it-emoji
               enable: true
 
 search:

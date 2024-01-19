@@ -13,7 +13,6 @@ Connect with me:
 ---
 [Email](mailto:elite2022zx@gmail.com)
 [Blog](https://elite-zx.github.io)
-[X](https://twitter.com/Bezod_jeff)
 
 
 
