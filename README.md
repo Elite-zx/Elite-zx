@@ -13,8 +13,6 @@ Connect with me:
 ---
 ![mail](img/mail.svg) [Email](mailto:elite2022zx@gmail.com)
 ![blog](img/globe-dark.svg) [Blog](https://elite-zx.github.io)
-![X](img/twitter-dark.svg) [X](https://twitter.com/Bezod_jeff)
-
 ---
 
 ![XUN-Morris's GitHub stats](https://github-readme-stats.vercel.app/api?username=Elite-zx&theme=transparent&show_icons=true)
