@@ -84,6 +84,7 @@ Plug 'preservim/nerdtree'
 Plug 'jiangmiao/auto-pairs'
 Plug 'bfrg/vim-cpp-modern'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'liuchengxu/vista.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' }
 Plug 'vim-airline/vim-airline'
@@ -100,7 +101,6 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'vim-utils/vim-man'
 Plug 'pboettch/vim-cmake-syntax'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'preservim/tagbar'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'tpope/vim-surround'
 Plug 'vim-autoformat/vim-autoformat'
@@ -111,6 +111,8 @@ Plug 'morhetz/gruvbox'
 Plug 'ajmwagar/vim-deus'
 Plug 'machakann/vim-highlightedyank'
 Plug 'voldikss/vim-floaterm'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 "Plug 'preservim/vim-markdown'
 "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
@@ -160,7 +162,7 @@ let g:NERDDefaultAlign = 'left'
 let g:NERDAltDelims_java = 1
 
 " Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+let g:NERDCustomDelimiters = { 'c': { 'left': '/*','right': '*/' },'cpp': { 'left': '/*','right': '*/' } }
 
 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCommentEmptyLines = 1
@@ -181,9 +183,13 @@ nnoremap <silent> <leader> :WhichKey ','<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" tagbar
+" vista
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F8> :TagbarToggle<CR>
+nmap <F8> :Vista!!<CR>
+let g:vista#renderer#enable_icon = 1
+let g:vista_icon_indent =  ["╰─▸ ", "├─▸ "]
+let g:vista_sidebar_width =40
+let g:vista_fzf_preview = ['right:50%']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LeaderF
@@ -201,8 +207,8 @@ let g:Lf_Gtagslabel = 'native-pygments'
 " let g:Lf_ReverseOrder = 1
 
 nmap <Leader>r  :Leaderf rg<CR>
-nmap <Leader>gf :Leaderf gtags<CR>
-nmap <C-o> :Leaderf gtags --by-context --auto-jump<CR>
+nmap <Leader>g :Leaderf gtags<CR>
+nmap <C-]> :Leaderf gtags --by-context --auto-jump<CR>
 
 
 
@@ -251,11 +257,6 @@ highlight DraculaComment cterm=italic gui=italic
 
 "
 " autocmd vimenter * colorscheme dracula
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" tagbar
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nmap <F8> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " cpp-enhanced-highlight
@@ -308,7 +309,7 @@ let g:indent_guides_start_level = 2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-gutentags
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+let g:gutentags_project_root = ['.git', '.root', '.svn', '.hg', '.project']
 let g:gutentags_ctags_tagfile = '.tags'
 
 let g:gutentags_modules = []
@@ -324,8 +325,12 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
 let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
+let g:gutentags_ctags_extra_args += ['--output-format=e-ctags']
 let g:gutentags_auto_add_gtags_cscope = 0
+
+" gtags
+let $GTAGSFORCECPP = 1
+let $GTAGSLABEL = 'native-pygments'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-cool
@@ -502,5 +507,13 @@ map ]t :tabnext<CR>
 map [t :tabprevious<CR>
 
 
-" gtags
-let $GTAGSLABEL = 'native-pygments'
+" copy and paste
+vmap <C-c> "+yi
+vmap <C-x> "+c
+vmap <C-v> c<ESC>"+p
+
+" yank a line without newline
+vnoremap al :<C-U>normal 0v$h<CR>
+omap al :normal val<CR>
+vnoremap il :<C-U>normal ^vg_<CR>
+omap il :normal vil<CR>

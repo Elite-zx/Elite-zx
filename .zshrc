@@ -82,6 +82,10 @@ plugins=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   zsh-vi-mode
+  command-not-found
+  colored-man-pages
+  tmux
+  fzf-tab
 )
 
 #bindkey '^I' autosuggest-accept
@@ -111,7 +115,7 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
- alias zshconfig="mate ~/.zshrc"
+alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias lc='colorls -lA --sd'
 alias ls="colorls --sd"
@@ -134,3 +138,8 @@ export HTTPS_PROXY=$MY_HTTPS_PROXY_SERVER
 
 # bochs
 export PATH=/home/elite-zx/bochs/bin:$PATH
+
+# fzf
+export FZF_DEFAULT_OPTS="--height 60% --layout=reverse --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+
+
