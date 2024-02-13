@@ -15,7 +15,7 @@ Connect with me:
 ![blog](img/globe-dark.svg) [Blog](https://elite-zx.github.io)
 ---
 
-![XUN-Morris's GitHub stats](https://github-readme-stats.vercel.app/api?username=Elite-zx&theme=transparent&show_icons=true)
+![XUN-Morris's GitHub stats](https://github-readme-stats.vercel.app/api?username=Elite-zx&theme=material-palenight&show_icons=true)
 
 
 ![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=Elite-zx&layout=compact&hide=javascript,html,css&langs_count=6)
