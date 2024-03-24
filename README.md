@@ -1,4 +1,4 @@
-👋 Hi, I'm Zhang Xun
+👋 Hi, I'm Xun Zhang
 ---
 - 🧑 A CS undergraduate from china.
 - 🥳 Prefer highly customizable and extensible tools like vim and obsidian
