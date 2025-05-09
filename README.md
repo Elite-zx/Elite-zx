@@ -11,8 +11,8 @@ Languages and Tools
 
 Connect with me:
 ---
-![mail](img/mail.svg) [Email](mailto:elite2022zx@gmail.com)
-![blog](img/globe-dark.svg) [Blog](https://www.zhihu.com/people/max-65-17-10/posts)
+ ![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white) [Email](mailto:elite2022zx@gmail.com)
+[Blog](https://www.zhihu.com/people/max-65-17-10/posts)
 ---
 
 ![XUN-Morris's GitHub stats](https://github-readme-stats.vercel.app/api?username=Elite-zx&theme=material-palenight&show_icons=true)
